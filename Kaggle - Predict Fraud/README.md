@@ -22,8 +22,9 @@ Please cite: Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson and Gianluca Bo
 Features
 --------
 
-    ##      Column                                Feature   Class
-    ## 1      Time How many times this card has been used Numeric
-    ## 2 V1 to V28                       from PC1 to PC28 Numeric
-    ## 3    Amount                     Transaction Amount Numeric
-    ## 4     Class        The actual classification Class Numeric
+| Feature   | Description                     | Type    |
+|-----------|---------------------------------|---------|
+| Time      | Seconds elapsed                 | Numeric |
+| V1 to V28 | from PC1 to PC28                | Numeric |
+| Amount    | Transaction Amount              | Numeric |
+| Class     | The actual classification Class | Numeric |
