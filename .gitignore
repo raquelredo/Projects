@@ -17,6 +17,19 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#R scripts
+*.R
+*.Rmd
+
+#images
+*.png
+
+#datasets
+*.csv
+
+#gitignore
+.gitignore
+
 # =========================
 # Operating System Files
 # =========================
@@ -45,3 +58,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+

@@ -8,4 +8,4 @@ Kaggle - Predict Fraud
 
 Anonymized credit card transactions labeled as fraudulent or genuine. Anonymization has been achieved performing Principal Component Analisis. 492 frauds out of 284,807 transactions
 
-*Challenges:* Imbalanced data | Understanding PCA
+*Challenges:* Unbalanced data | Understanding PCA
