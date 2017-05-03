@@ -32,20 +32,22 @@ Why are our best and most experienced employees leaving prematurely?
 Indoor localization wifi Footprint
 ----------------------------------
 
-\[clic to go\] (<https://github.com/raquelredo/Projects/tree/master/Indoor%20localization%20Wifi%20Footprint>)
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Indoor%20localization%20Wifi%20Footprint)
 
-Indoor localization is a key topic for mobile computing. However, it is still very difficult for the mobile sensing community to compare state-of-art Indoor Positioning Systems due to the scarcity of publicly available databases. Magnetic field-based methods are becoming an important trend in this research field. Here, we present UJIIndoorLoc-Mag database, which can be used to compare magnetic field-based indoor localization methods. It consists of 270 continuous samples for training and 11 for testing.
+Many real world applications need to know the localization of a user in the world to provide their services. Therefore, automatic user localization has been a hot research topic in the last years. Automatic user localization consists of estimating the position of the user (latitude, longitude and altitude) by using an electronic device, usually a mobile phone. Outdoor localization problem can be solved very accurately thanks to the inclusion of GPS sensors into the mobile devices. However, indoor localization is still an open problem mainly due to the loss of GPS signal in indoor environments. Although, there are some indoor positioning technologies and methodologies, this database is focused on WLAN fingerprint-based ones (also know as WiFi Fingerprinting).
 
--   Features: 520
--   Observations: 40,000
--   Tuples: 520,000
+-   Features: 529
+-   Observations: 19,937
+-   Tuples: 10,546,673
 
 **Challenges:** Reduce dataset for downloading time computation | Indoor localization
 
 Kaggle - Titanic survival prediction
 ------------------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle-%20Titanic%20survival%20prediction) It is your job to predict if a passenger survived the sinking of the Titanic or not.
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle-%20Titanic%20survival%20prediction)
+
+It is your job to predict if a passenger survived the sinking of the Titanic or not.
 
 -   Features: 11
 -   Observations: 891
