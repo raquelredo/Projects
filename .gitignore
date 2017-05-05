@@ -14,21 +14,30 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#cache
+*.Rdb
+*.Rdx
+
 # Windows shortcuts
 *.lnk
 
-#R scripts
+#R scripts/projects
 *.R
 *.Rmd
+.Rproj
+.Rhistory
+.RData
+*.html
 
 #images
-*.png
 
 #datasets
 *.csv
+*.xlsx
 
 #gitignore
 .gitignore
+.gitattributes
 
 # =========================
 # Operating System Files
@@ -59,3 +68,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+.Rproj.user
+*.Rproj
+_packages
+*.RData
+Kaggle - Predict Fraud/Credit_Fraud_Script_cache/markdown_github/__packages

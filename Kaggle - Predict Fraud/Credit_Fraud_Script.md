@@ -257,7 +257,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ##   41.23    5.53   46.78
+    ##   57.06    7.23   64.91
 
 ``` r
 model_Lgm01
@@ -276,8 +276,6 @@ model_Lgm01
     ## 
     ##   ROC        Sens       Spec     
     ##   0.9840832  0.9915034  0.8933178
-    ## 
-    ## 
 
 with 10 PCA's feautures
 -----------------------
@@ -333,7 +331,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ##   41.41    6.99   48.41
+    ##   63.44    7.39   71.58
 
 ``` r
 model_Lgm03
@@ -352,8 +350,6 @@ model_Lgm03
     ## 
     ##   ROC        Sens       Spec     
     ##   0.9856594  0.9908251  0.8933178
-    ## 
-    ## 
 
 Predictions with our logistic models
 ------------------------------------
@@ -515,8 +511,8 @@ model_t03
     ## The final values used for the model were trials = 20, model = tree
     ##  and winnow = TRUE.
 
-Predictions with our logistic models
-------------------------------------
+Predictions with our Tree models
+--------------------------------
 
 ``` r
 pred_t01 <- predict(model_t01, TeSet)
@@ -524,8 +520,8 @@ pred_t02 <- predict(model_t02, TeSet)
 pred_t03 <- predict(model_t03, TeSet)
 ```
 
-Results of all models
-=====================
+Results from all models
+=======================
 
 ``` r
 results <- cbind(real = TeSet$Class,
@@ -566,9 +562,40 @@ AUC
     ##      auc_lgm01 auc_lgm02 auc_lgm03   auc_t01   auc_t02   auc_t03
     ## [1,] 0.9274297 0.9264917 0.9304852 0.9046974 0.8876613 0.9047091
 
-Our best metric is for auc\_lgm03 which is a logistic regression that uses PCA from 1 to 15 as well as Time and Amount. Training Set has been oversampled in order to reduce bias by unbalanced fraud class.
+Our best metric is for auc\_lgm03, which is a logistic regression that uses PCA from 1 to 15 as well as Time and Amount. Training Set has been oversampled in order to reduce bias by unbalanced fraud class.
 
 Confusion Matrix:
+
+``` r
+confusionMatrix(results[,4], results[,1])
+```
+
+    ## Confusion Matrix and Statistics
+    ## 
+    ##           Reference
+    ## Prediction    No   Yes
+    ##        No  84460    19
+    ##        Yes   834   128
+    ##                                           
+    ##                Accuracy : 0.99            
+    ##                  95% CI : (0.9893, 0.9907)
+    ##     No Information Rate : 0.9983          
+    ##     P-Value [Acc > NIR] : 1               
+    ##                                           
+    ##                   Kappa : 0.2285          
+    ##  Mcnemar's Test P-Value : <2e-16          
+    ##                                           
+    ##             Sensitivity : 0.9902          
+    ##             Specificity : 0.8707          
+    ##          Pos Pred Value : 0.9998          
+    ##          Neg Pred Value : 0.1331          
+    ##              Prevalence : 0.9983          
+    ##          Detection Rate : 0.9885          
+    ##    Detection Prevalence : 0.9887          
+    ##       Balanced Accuracy : 0.9305          
+    ##                                           
+    ##        'Positive' Class : No              
+    ## 
 
 ``` r
 write.csv(pred_Lgm03, "prediction.csv")
