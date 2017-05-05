@@ -170,7 +170,7 @@ for (i in seq_along(variables)) {
     ## Saving 7 x 7 in image
     ## Saving 7 x 7 in image
 
-All plots are saved in my working directory. However I will load an image as a sample of the result.
+All plots are saved in my working directory.
 
 Building the model
 ==================
@@ -202,7 +202,7 @@ table(TeSet$Class)
 Oversampling
 ============
 
-We want to use Logistic regression and model trees as both are best methods for binary Class predictions. However, this methods will treat as "noise" values that ocurr less frequently. One way to solve this situation is oversampling the in minory class. Oversampling Fraud cases up to 25% percent will give us more balance to the variable to predict without introducing too many repeteated records.
+We want to use Logistic regression and model trees as both are best methods for binary Class predictions. However, these methods will treat as "noise" values that ocurr less frequently. One way to solve this situation is oversampling the minory class. Oversampling Fraud cases up to 25% percent will give us more balance to the variable to predict without introducing too many repeteated records.
 
 ``` r
 #oversampling to improve prediction because imbalanced class
@@ -257,7 +257,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ##   41.39    5.53   46.92
+    ##   41.23    5.53   46.78
 
 ``` r
 model_Lgm01
@@ -295,7 +295,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ##   25.90    4.83   30.73
+    ##   26.08    4.66   30.75
 
 ``` r
 model_Lgm02
@@ -333,7 +333,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ##   41.30    6.95   48.25
+    ##   41.41    6.99   48.41
 
 ``` r
 model_Lgm03
@@ -371,7 +371,6 @@ with 15 PCA's feautures
 -----------------------
 
 ``` r
-my_metric = "AUC"
 t0 <- proc.time()
 model_t01 <- caret::train(Class ~. -Time -Amount,
                      data = TrSet,
@@ -383,7 +382,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ## 6351.58   10.78 6363.78
+    ## 6408.45   11.62 6422.98
 
 ``` r
 model_t01
@@ -421,7 +420,6 @@ model_t01
 ### with 10 PCA's feautures
 
 ``` r
-my_metric = "AUC"
 t0 <- proc.time()
 model_t02 <- caret::train(Class ~ +V1+V2+V3+V4+V5+V6+V7+V8+V9+V10,
                      data = TrSet,
@@ -433,7 +431,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ## 5076.39    7.53 5085.46
+    ## 5140.52    7.27 5148.97
 
 ``` r
 model_t02
@@ -471,7 +469,6 @@ model_t02
 ### with all features
 
 ``` r
-my_metric = "AUC"
 t0 <- proc.time()
 model_t03 <- caret::train(Class ~. ,
                      data = TrSet,
@@ -483,7 +480,7 @@ tf
 ```
 
     ##    user  system elapsed 
-    ## 6446.69   11.58 6459.87
+    ## 7697.34   13.80 7714.39
 
 ``` r
 model_t03
@@ -571,33 +568,8 @@ AUC
 
 Our best metric is for auc\_lgm03 which is a logistic regression that uses PCA from 1 to 15 as well as Time and Amount. Training Set has been oversampled in order to reduce bias by unbalanced fraud class.
 
-``` r
-confusionMatrix(results[,4], results[,1])
-```
+Confusion Matrix:
 
-    ## Confusion Matrix and Statistics
-    ## 
-    ##           Reference
-    ## Prediction    No   Yes
-    ##        No  84460    19
-    ##        Yes   834   128
-    ##                                           
-    ##                Accuracy : 0.99            
-    ##                  95% CI : (0.9893, 0.9907)
-    ##     No Information Rate : 0.9983          
-    ##     P-Value [Acc > NIR] : 1               
-    ##                                           
-    ##                   Kappa : 0.2285          
-    ##  Mcnemar's Test P-Value : <2e-16          
-    ##                                           
-    ##             Sensitivity : 0.9902          
-    ##             Specificity : 0.8707          
-    ##          Pos Pred Value : 0.9998          
-    ##          Neg Pred Value : 0.1331          
-    ##              Prevalence : 0.9983          
-    ##          Detection Rate : 0.9885          
-    ##    Detection Prevalence : 0.9887          
-    ##       Balanced Accuracy : 0.9305          
-    ##                                           
-    ##        'Positive' Class : No              
-    ##
+``` r
+write.csv(pred_Lgm03, "prediction.csv")
+```
