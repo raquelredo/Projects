@@ -4,6 +4,9 @@ Titanic: Machine Learning from Disaster
 Dataset
 =======
 
+-   test set can be downloaded from : <https://www.kaggle.com/c/titanic/download/test.csv>
+-   train set can be downloaded from: <https://www.kaggle.com/c/titanic/download/train.csv>
+
 Description
 ===========
 
