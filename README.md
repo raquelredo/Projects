@@ -45,7 +45,7 @@ Many real world applications need to know the localization of a user in the worl
 Kaggle - Titanic survival prediction
 ------------------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle-%20Titanic%20survival%20prediction)
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20Titanic%20survival%20prediction)
 
 It is your job to predict if a passenger survived the sinking of the Titanic or not.
 
