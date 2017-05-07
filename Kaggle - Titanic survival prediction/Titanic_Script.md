@@ -1,11 +1,18 @@
 Titanic Survival prediction Script
 ================
 
-Libraries needed to run the script
+Libraries needed to run the script:
 
 ``` r
 library(corrplot) #for correlation matrix
+library(gsubfn)#for preprocessing
+library(caret)#for prediction
+library(dplyr)#for mutate
+library(kknn)
+library(C50)
 ```
+
+Importing the files:
 
 ``` r
 train <- read.csv("train.csv", na.strings = c("NA", "NULL", ""))
@@ -69,6 +76,10 @@ colnames(test)
     ##  [6] "SibSp"       "Parch"       "Ticket"      "Fare"        "Cabin"      
     ## [11] "Embarked"
 
+``` r
+test <-  mutate(test, Survived = NA)#add column Survived
+```
+
 Some Preprocessing
 ------------------
 
@@ -91,20 +102,10 @@ train$Survived <- as.factor(train$Survived)
 
 ### Missing values
 
+First I will take a look in where are the missing values
+
 ``` r
 library(Amelia)
-```
-
-    ## Loading required package: Rcpp
-
-    ## ## 
-    ## ## Amelia II: Multiple Imputation
-    ## ## (Version 1.7.4, built: 2015-12-05)
-    ## ## Copyright (C) 2005-2017 James Honaker, Gary King and Matthew Blackwell
-    ## ## Refer to http://gking.harvard.edu/amelia/ for more information
-    ## ##
-
-``` r
 missmap(train)
 ```
 
@@ -214,7 +215,7 @@ sum(is.na(train$Age) == TRUE)/length(train$Age)#in%  0.1986532
 
     ## [1] 0.1986532
 
-#### Embarked
+### Embarked
 
 ``` r
 table(train$Embarked, useNA = "always")
@@ -230,9 +231,9 @@ I will assign the value to the port with more passengers, *Southampton*
 train$Embarked[which(is.na(train$Embarked))] <- "S"
 ```
 
-#### Age
+### Age
 
-We are going to check the titles in the Name feature. We assume that in those years people had more clusterized styles of life, therefore got married, had children at similar ages.
+We are going to check the titles in the Name feature. We assume that in those years people had similar styles of life, meaning people got married or had children at similar ages.
 
 ``` r
 train$Name <- as.character(train$Name)
@@ -248,7 +249,7 @@ sort(table_words [grep("\\.", names(table_words))], decreasing = TRUE)
     ##     Lady.      Mme.       Ms.      Sir. 
     ##         1         1         1         1
 
-We need to find first the missing values that need to be filled up.
+We need to find, first, the missing values that need to be filled up.
 
 ``` r
 library(stringr)
@@ -260,7 +261,7 @@ table(tab[is.na(tab[,1]),2])
     ##     Dr. Master.   Miss.     Mr.    Mrs. 
     ##       1       4      36     119      17
 
-For the title containing a missing values, I will impute the mean of the value for each title group.
+For the title containing a missing values, I will impute the mean of the value for each title group;
 
 ``` r
 mean_mr <- mean(train$Age[grepl(" Mr\\.", train$Name) & !is.na(train$Age)])
@@ -268,9 +269,10 @@ mean_mrs <- mean(train$Age[grepl(" Mrs\\.", train$Name) & !is.na(train$Age)])
 mean_dr <- mean(train$Age[grepl(" Dr\\.", train$Name) & !is.na(train$Age)])
 mean_miss <- mean(train$Age[grepl(" Miss\\.", train$Name) & !is.na(train$Age)])
 mean_master <- mean(train$Age[grepl(" Master\\.", train$Name) & !is.na(train$Age)])
+mean_ms <- mean(train$Age[grepl(" Ms\\.", train$Name) & !is.na(train$Age)])
 ```
 
-and impute the missing value with the mean
+and impute the missing value with the mean of its group.
 
 ``` r
 train$Age[grepl(" Mr\\.", train$Name) & 
@@ -285,16 +287,21 @@ train$Age[grepl(" Master\\.", train$Name) &
                                 is.na(train$Age)] = mean_master
 ```
 
-#### Name
+### Other features
 
-Name of ther Passenger has nothing to do with the Survival. So, I can remove it.
+Some of the variables, intuitively, does not have anything to do with survival rate.
 
 ``` r
 train$Name <- NULL
+train$Ticket <- NULL
+train$Cabin <- NULL
+train$Fare <- NULL
 ```
 
 Data Visualization
 ------------------
+
+### Survival frequency
 
 ``` r
 library(ggplot2)
@@ -302,7 +309,7 @@ ggplot(train, aes(x = Survived, y=..count.., fill = Survived)) +
   geom_bar()
 ```
 
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-16-1.png)
+![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-17-1.png) \#\#\#Survival by age bins
 
 ``` r
 ggplot(data=train, aes(x=Age))+
@@ -310,14 +317,47 @@ ggplot(data=train, aes(x=Age))+
                                             fill = Survived))
 ```
 
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 ``` r
 boxplot(train$Age ~ train$Survived, main= "Passenger survival by age",
         xlab = "Survived", ylab = "Age")
 ```
 
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-18-1.png)
+![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-19-1.png) \#\#\#Gender has anything to do with survival?
+
+``` r
+table(train$Pclass, train$male)
+```
+
+    ##    
+    ##       0   1
+    ##   1  94 122
+    ##   2  76 108
+    ##   3 144 347
+
+``` r
+ggplot(train, aes(x=male, fill=Survived)) + geom_bar()
+```
+
+![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-21-1.png) \#\#\#Number of family members on board
+
+``` r
+ggplot(train, aes(x=SibSp, fill=Survived)) + geom_bar() 
+```
+
+![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-22-1.png)
+
+``` r
+ggplot(train, aes(x=Parch, fill=Survived)) + geom_bar() 
+```
+
+![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-23-1.png)
+
+Transforming Age to bins
+------------------------
+
+I will group people in four different bins according to their age:
 
 ``` r
 train_child <- train$Survived[train$Age < 13]
@@ -334,7 +374,7 @@ length(train_youth[which(train_youth == 1)])/length(train_youth)
     ## [1] 0.4025424
 
 ``` r
-train_adult <- train$Survived[train$Age >= 25 & train$Age <65]
+train_adult <- train$Survived[train$Age >= 25 & train$Age < 65]
 length(train_adult[which(train_adult == 1)])/length(train_adult)
 ```
 
@@ -347,46 +387,414 @@ length(train_senior[which(train_senior == 1)])/length(train_senior)
 
     ## [1] 0.09090909
 
-``` r
-table(train$Pclass, train$male)
-```
-
-    ##    
-    ##       0   1
-    ##   1  94 122
-    ##   2  76 108
-    ##   3 144 347
+Scale & Transform some variables
+--------------------------------
 
 ``` r
-ggplot(train, aes(x=male, fill=Survived)) + geom_bar()
+train$Embarked <- gsub("C", "1", train$Embarked)
+train$Embarked <- gsub("Q", "2", train$Embarked)
+train$Embarked <- gsub("S", "3", train$Embarked)
+train$Embarked <- as.integer(train$Embarked)
 ```
-
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 ``` r
-ggplot(train, aes(x=SibSp, fill=Survived)) + geom_bar() 
+range(train$Age, na.rm = TRUE)
 ```
 
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-25-1.png)
+    ## [1]  0.42 80.00
 
 ``` r
-ggplot(train, aes(x=Parch, fill=Survived)) + geom_bar() 
+range(test$Age, na.rm = TRUE)
 ```
 
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-26-1.png)
+    ## [1]  0.17 76.00
+
+We will consider the minimum and maximun age value for scaling both datasets.
 
 ``` r
-ggplot(train, aes(x=Fare, fill=Survived)) + geom_histogram()
+min <- 0.17
+max <- 80
+scale_t <- function(x) { 
+  return( (x -min) / (max -min) )
+}
+train$Age_s <- sapply(train$Age, scale_t)
+train$Age <-NULL
 ```
 
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+for other variables scaling is much straigtforward:
 
-![](Titanic_Script_files/figure-markdown_github/unnamed-chunk-27-1.png)
+``` r
+normal <- function(x) {
+  (x-min(x))/(max(x)-min(x))
+}
 
-library(gsubfn) train$Embarked &lt;- gsub("C", "1", train$Embarked) train$Embarked &lt;- gsub("Q", "2", train$Embarked) train$Embarked &lt;- gsub("S", "3", train$Embarked) train*E**m**b**a**r**k**e**d* &lt; −*a**s*.*i**n**t**e**g**e**r*(*t**r**a**i**n*Embarked) write.csv(train, "train2.csv")
+train$Pclass_s <- normal(train$Pclass)
+train$SibSp_s <- normal(train$SibSp)
+train$Embarked_s <- normal(train$Embarked)
+train$Parch_s <- normal(train$Parch)
+#
+train$Pclass <- NULL
+train$SibSp <- NULL
+train$Embarked <- NULL
+train$Parch <- NULL
+```
 
-train*A**g**e*<sub>*s*</sub>*c**a**l**e**d* &lt; −*a**s*.*i**n**t**e**g**e**r*(*s**c**a**l**e*(*t**r**a**i**n*\[,4\],*c**e**n**t**e**r* = *T**R**U**E*, *s**c**a**l**e* = *T**R**U**E*))*t**r**a**i**n*Age &lt;- NULL
+``` r
+ctrl <- trainControl(method = "cv", 
+                     number = 10, 
+                     summaryFunction = twoClassSummary,
+                     classProb = T,
+                     allowParallel = T)
+```
 
-ctrl &lt;- trainControl(method = "repeatedcv", number = 10) set.seed(123) library(dplyr)
+Building the model
+==================
 
-train &lt;- as.matrix(train) KNN &lt;- train(Age~., train, method = 'knn', k = 4, trControl = ctrl, metric = "Kappa", na.action = na.pass)
+``` r
+##First some mutation
+train <- mutate(train, Survived = ifelse(Survived == 1,
+                                         "survived", "perished"))
+#### Dividing the data into training/test con 0.7/0.3
+set.seed(123)
+train <- as.data.frame(train)
+index <- createDataPartition(unlist(train$Survived), p = 0.7, list=F)
+train_1 <- train[index, ] 
+train_2 <- train[-index,]
+table(train_1$Survived)#it is balanced!
+```
+
+    ## 
+    ## perished survived 
+    ##      385      240
+
+Knn
+---
+
+``` r
+#train_2 <- as.matrix(train_2)
+model_knn <- caret::train(Survived~.-PassengerId, 
+                   train_1, 
+                   method = "kknn",
+                   trControl = ctrl,
+                   metric= "kappa")
+model_knn
+```
+
+    ## k-Nearest Neighbors 
+    ## 
+    ## 625 samples
+    ##   7 predictor
+    ##   2 classes: 'perished', 'survived' 
+    ## 
+    ## No pre-processing
+    ## Resampling: Cross-Validated (10 fold) 
+    ## Summary of sample sizes: 563, 562, 562, 562, 563, 563, ... 
+    ## Resampling results across tuning parameters:
+    ## 
+    ##   kmax  ROC        Sens       Spec     
+    ##   5     0.8195892  0.8548583  0.6958333
+    ##   7     0.8206590  0.8729420  0.6833333
+    ##   9     0.8335217  0.8730094  0.6791667
+    ## 
+    ## Tuning parameter 'distance' was held constant at a value of 2
+    ## 
+    ## Tuning parameter 'kernel' was held constant at a value of optimal
+    ## ROC was used to select the optimal model using  the largest value.
+    ## The final values used for the model were kmax = 9, distance = 2 and
+    ##  kernel = optimal.
+
+Tree
+----
+
+``` r
+model_tree <- train(unlist(Survived)~.-PassengerId , 
+             train_1, 
+             method = 'C5.0',
+             trControl = ctrl, 
+             metric= "kappa",
+             na.action  = na.pass)
+model_tree
+```
+
+    ## C5.0 
+    ## 
+    ## 625 samples
+    ##   7 predictor
+    ##   2 classes: 'perished', 'survived' 
+    ## 
+    ## No pre-processing
+    ## Resampling: Cross-Validated (10 fold) 
+    ## Summary of sample sizes: 563, 562, 562, 562, 562, 563, ... 
+    ## Resampling results across tuning parameters:
+    ## 
+    ##   model  winnow  trials  ROC        Sens       Spec     
+    ##   rules  FALSE    1      0.8108946  0.9094467  0.6541667
+    ##   rules  FALSE   10      0.8595971  0.8939271  0.6791667
+    ##   rules  FALSE   20      0.8616341  0.9170040  0.6833333
+    ##   rules   TRUE    1      0.8088282  0.9043860  0.6625000
+    ##   rules   TRUE   10      0.8636794  0.9042510  0.6875000
+    ##   rules   TRUE   20      0.8668269  0.9118084  0.7083333
+    ##   tree   FALSE    1      0.8190030  0.9068151  0.6541667
+    ##   tree   FALSE   10      0.8610338  0.9171390  0.6791667
+    ##   tree   FALSE   20      0.8626518  0.9223347  0.6708333
+    ##   tree    TRUE    1      0.8208699  0.9043860  0.6625000
+    ##   tree    TRUE   10      0.8644638  0.9196356  0.6875000
+    ##   tree    TRUE   20      0.8655575  0.9170715  0.6916667
+    ## 
+    ## ROC was used to select the optimal model using  the largest value.
+    ## The final values used for the model were trials = 20, model = rules
+    ##  and winnow = TRUE.
+
+Logistic regression
+-------------------
+
+``` r
+model_log <- train(Survived ~.-PassengerId, 
+             train_1, 
+             method="glm", 
+             family= binomial(link = "logit"),
+             trControl = ctrl, 
+             metric = "Kappa",
+             na.action  = na.pass)
+model_log
+```
+
+    ## Generalized Linear Model 
+    ## 
+    ## 625 samples
+    ##   7 predictor
+    ##   2 classes: 'perished', 'survived' 
+    ## 
+    ## No pre-processing
+    ## Resampling: Cross-Validated (10 fold) 
+    ## Summary of sample sizes: 563, 562, 562, 563, 563, 562, ... 
+    ## Resampling results:
+    ## 
+    ##   ROC       Sens       Spec     
+    ##   0.851476  0.8568826  0.6958333
+
+Making Predictions
+------------------
+
+``` r
+pred_kknn <- predict(model_knn, train_2) 
+pred_log <-  predict(model_log, train_2)
+pred_tree <- predict(model_tree, train_2) 
+```
+
+``` r
+confusionMatrix(pred_kknn, train_2$Survived)
+```
+
+    ## Confusion Matrix and Statistics
+    ## 
+    ##           Reference
+    ## Prediction perished survived
+    ##   perished      143       35
+    ##   survived       21       67
+    ##                                           
+    ##                Accuracy : 0.7895          
+    ##                  95% CI : (0.7355, 0.8369)
+    ##     No Information Rate : 0.6165          
+    ##     P-Value [Acc > NIR] : 1.118e-09       
+    ##                                           
+    ##                   Kappa : 0.5429          
+    ##  Mcnemar's Test P-Value : 0.08235         
+    ##                                           
+    ##             Sensitivity : 0.8720          
+    ##             Specificity : 0.6569          
+    ##          Pos Pred Value : 0.8034          
+    ##          Neg Pred Value : 0.7614          
+    ##              Prevalence : 0.6165          
+    ##          Detection Rate : 0.5376          
+    ##    Detection Prevalence : 0.6692          
+    ##       Balanced Accuracy : 0.7644          
+    ##                                           
+    ##        'Positive' Class : perished        
+    ## 
+
+``` r
+confusionMatrix(pred_log, train_2$Survived)
+```
+
+    ## Confusion Matrix and Statistics
+    ## 
+    ##           Reference
+    ## Prediction perished survived
+    ##   perished      142       30
+    ##   survived       22       72
+    ##                                           
+    ##                Accuracy : 0.8045          
+    ##                  95% CI : (0.7517, 0.8504)
+    ##     No Information Rate : 0.6165          
+    ##     P-Value [Acc > NIR] : 3.037e-11       
+    ##                                           
+    ##                   Kappa : 0.5803          
+    ##  Mcnemar's Test P-Value : 0.3317          
+    ##                                           
+    ##             Sensitivity : 0.8659          
+    ##             Specificity : 0.7059          
+    ##          Pos Pred Value : 0.8256          
+    ##          Neg Pred Value : 0.7660          
+    ##              Prevalence : 0.6165          
+    ##          Detection Rate : 0.5338          
+    ##    Detection Prevalence : 0.6466          
+    ##       Balanced Accuracy : 0.7859          
+    ##                                           
+    ##        'Positive' Class : perished        
+    ## 
+
+``` r
+confusionMatrix(pred_tree, train_2$Survived)
+```
+
+    ## Confusion Matrix and Statistics
+    ## 
+    ##           Reference
+    ## Prediction perished survived
+    ##   perished      153       35
+    ##   survived       11       67
+    ##                                           
+    ##                Accuracy : 0.8271          
+    ##                  95% CI : (0.7762, 0.8705)
+    ##     No Information Rate : 0.6165          
+    ##     P-Value [Acc > NIR] : 6.692e-14       
+    ##                                           
+    ##                   Kappa : 0.6172          
+    ##  Mcnemar's Test P-Value : 0.000696        
+    ##                                           
+    ##             Sensitivity : 0.9329          
+    ##             Specificity : 0.6569          
+    ##          Pos Pred Value : 0.8138          
+    ##          Neg Pred Value : 0.8590          
+    ##              Prevalence : 0.6165          
+    ##          Detection Rate : 0.5752          
+    ##    Detection Prevalence : 0.7068          
+    ##       Balanced Accuracy : 0.7949          
+    ##                                           
+    ##        'Positive' Class : perished        
+    ## 
+
+Results for train\_2 predictions
+================================
+
+``` r
+results <- cbind(kknn = paste(pred_kknn),
+                 tree = paste(pred_tree),
+                 log = paste(pred_log))
+```
+
+tranform again to binary values:
+
+``` r
+col_p <- function(x){
+  ifelse(x=="perished", 0, 1)
+}
+
+results <- apply(results, 2, col_p)
+```
+
+I am going to count the results according to the different algorithms and then, build a result matrix with the prediction that most ocurrs.
+
+``` r
+#results <- as.data.frame(results)
+survival <- rowSums(results)
+survival <- as.data.frame(survival)
+survival$perish <- 3-survival[,1]
+results2 <- ifelse(survival$survival>survival$perish, 1, 0)
+```
+
+``` r
+train_2$Survived <- ifelse(train_2$Survived=="survived", 1, 0)
+confusionMatrix(results2, train_2$Survived)
+```
+
+    ## Confusion Matrix and Statistics
+    ## 
+    ##           Reference
+    ## Prediction   0   1
+    ##          0 148  34
+    ##          1  16  68
+    ##                                           
+    ##                Accuracy : 0.812           
+    ##                  95% CI : (0.7598, 0.8571)
+    ##     No Information Rate : 0.6165          
+    ##     P-Value [Acc > NIR] : 4.357e-12       
+    ##                                           
+    ##                   Kappa : 0.5887          
+    ##  Mcnemar's Test P-Value : 0.01621         
+    ##                                           
+    ##             Sensitivity : 0.9024          
+    ##             Specificity : 0.6667          
+    ##          Pos Pred Value : 0.8132          
+    ##          Neg Pred Value : 0.8095          
+    ##              Prevalence : 0.6165          
+    ##          Detection Rate : 0.5564          
+    ##    Detection Prevalence : 0.6842          
+    ##       Balanced Accuracy : 0.7846          
+    ##                                           
+    ##        'Positive' Class : 0               
+    ## 
+
+The result can not beat the Tree prediction. So, this is the model we will use to predict the value in the test set.
+
+Mirroring the preprocess with the validation test Set.
+------------------------------------------------------
+
+``` r
+test$male <- as.integer(ifelse(test$Sex == "male", 1, 0))
+test$Sex <- NULL
+test$Embarked[which(is.na(test$Embarked))] <- "S"
+test$Age[grepl(" Mr\\.", test$Name) & 
+                 is.na(test$Age)] = mean_mr
+test$Age[grepl(" Mrs\\.", test$Name) &
+                 is.na(test$Age)] =  mean_mrs 
+test$Age[grepl(" Dr\\.", test$Name) &
+                            is.na(test$Age)] = mean_dr
+test$Age[grepl(" Miss\\.", test$Name) &
+                              is.na(test$Age)] = mean_miss
+test$Age[grepl(" Master\\.", test$Name) &
+                                is.na(test$Age)] = mean_master
+test$Age[grepl(" Ms\\.", test$Name) &
+                                is.na(test$Age)] = mean_ms
+#
+test$Name <- NULL
+test$Ticket <- NULL
+test$Cabin <- NULL
+test_child <- test$Survived[test$Age < 13]
+test_youth <- test$Survived[test$Age >= 15 & test$Age <25]
+test_adult <- test$Survived[test$Age >= 25 & test$Age < 65]
+test_senior <- test$Survived[test$Age >= 65]
+test$Embarked <- gsub("C", "1", test$Embarked)
+test$Embarked <- gsub("Q", "2", test$Embarked)
+test$Embarked <- gsub("S", "3", test$Embarked)
+test$Embarked <- as.integer(test$Embarked)
+test$Age_s <- sapply(test$Age, scale_t) 
+test$Age <- NULL
+test$Pclass_s <- normal(test$Pclass)
+test$SibSp_s <- normal(test$SibSp)
+test$Embarked_s <- normal(test$Embarked)
+test$Parch_s <- normal(test$Parch)
+#
+test$Pclass <- NULL
+test$SibSp <- NULL
+test$Embarked <- NULL
+test$Parch <- NULL
+```
+
+and make the prediction:
+
+``` r
+pred_s <- predict(model_tree, test)
+pred_s <- ifelse(pred_s=="survived", 1, 0)
+pred_s <- as.data.frame(pred_s)
+pred_s$PassengerId <- test$PassengerId
+pred_s <- pred_s[,c(2,1)]
+colnames(pred_s) <- c("PassengerId","Survived")
+```
+
+Finally, I will write file for submission:
+
+``` r
+write.csv(pred_s, "pred_s.csv", row.names = FALSE)
+```
