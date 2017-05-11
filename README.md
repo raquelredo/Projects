@@ -1,14 +1,14 @@
 Projects
 ================
 
-This is a brief introduction of some of the projects done. In most cases datasets are public therefore the source is pointed out in the correspondent README file. Enjoy!
+This is a brief introduction of some of the projects done. In most cases data sets are public therefore the source is pointed out in the correspondent README file. Enjoy!
 
 Kaggle - Predict Fraud
 ----------------------
 
 [clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20Predict%20Fraud)
 
-Anonymized credit card transactions labeled as fraudulent or genuine. Anonymization has been achieved performing Principal Component Analisis. 492 frauds out of 284,807 transactions.
+Anonymized credit card transactions labeled as fraudulent or genuine. Anonymization has been achieved performing Principal Component Analysis. 492 frauds out of 284,807 transactions.
 
 -   Features: 30
 -   Observations: 284,807
@@ -40,7 +40,7 @@ Many real world applications need to know the localization of a user in the worl
 -   Observations: 19,937
 -   Tuples: 10,546,673
 
-**Challenges:** Reduce dataset for downloading time computation | Indoor localization
+**Challenges:** Reduce data set for downloading time computation | Indoor localization
 
 Kaggle - Titanic survival prediction
 ------------------------------------
@@ -54,3 +54,15 @@ It is your job to predict if a passenger survived the sinking of the Titanic or 
 -   Tuples: 10,692
 
 **Challenges:** Missing values Treatment | Working with text
+
+Association with Market Basket Analysis (MBA)
+---------------------------------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Association%20-%20Market%20Basket%20analysis)
+
+The main purpose is to analyze the Basket composition from purchase tickets to study how consumers buy products together. This analysis might the foundation base for a cluster customer analysis or a product system recommendation.
+
+-   Type: list of lists
+-   Observations: 9835 ticket lists
+
+**Challenges:** Association Analysis per se
