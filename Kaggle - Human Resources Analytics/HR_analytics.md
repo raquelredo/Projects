@@ -90,6 +90,10 @@ for (i in seq_along(variables)) {
   dev.off()
 }
 ```
+Histograms and density plots are stored in the wd. I will load one here to show its shape.
+![](HR_analytics_files/figure-markdown_github/plot_average_monthly_hours.png)
+
+
 
 Normalization
 =============
