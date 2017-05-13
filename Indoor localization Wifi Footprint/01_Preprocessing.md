@@ -281,9 +281,9 @@ ggplot(trainingData, aes(LONGITUDE,
 
 ![](01_Preprocessing_files/figure-markdown_github/Building%20ID-1.png) I can see the shapes of the buldings. Also I can recognise when looking in Google map, which building is. It is part of the University Campus from \[Universitat Jaume I\] ("<https://www.google.es/maps/place/Universitat+Jaume+I/@39.9929222,-0.0676806,17z/data>=!4m5!3m4!1s0xd5ffe0fca9b5147:0x1368bf53b3a7fb3f!8m2!3d39.9945711!4d-0.0689003?hl=es"),in Castelló, Spain. Not surprisingly, is the University in which attend this data set owners. The plot shows the coherence of the data collected. It seems there is no mistake in its collection.
 
-I have drawn its shape on the map.
+I have drawn its shape on the map. ![](Credit_Fraud_Script_files/figure-markdown_github/Missing%20V-1.png)
 
-\[UJI Buildings\]\[01\_Preprocessing\_files/figure-markdown\_github/gmap.png\]
+\[\]\[01\_Preprocessing\_files/figure-markdown\_github/gmap.png\]
 
 Plot 2 - Relative Position
 --------------------------
