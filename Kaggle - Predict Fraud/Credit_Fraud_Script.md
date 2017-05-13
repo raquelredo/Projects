@@ -67,7 +67,9 @@ First thing I like to know is if there are missing values on my dataset. I love 
 missmap(data)
 ```
 
-![](Credit_Fraud_Script_files/figure-markdown_github/Missing%20V-1.png) Class should be a factor, not a number.
+![](Credit_Fraud_Script_files/figure-markdown_github/Missing%20V-1.png) 
+
+Class should be a factor, not a number.
 
 ``` r
 # Changing Class type to factor
