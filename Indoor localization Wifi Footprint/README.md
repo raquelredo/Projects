@@ -6,15 +6,15 @@ Data Set
 
 The Dataset can be easily download from the UCI MAchine Learning Repository in here: <http://archive.ics.uci.edu/ml/datasets/UJIIndoorLoc>
 
-Source:
--------
+Source
+------
 
 Donors/Contact Joaquín Torres-Sospedra jtorres +@+ uji.es Raul Montoliu montoliu +@+ uji.es Adolfo Martínez-Usó admarus +@+ upv.es Joaquín Huerta huerta +@+ uji.es UJI - Institute of New Imaging Technologies, Universitat Jaume I, Avda. Vicente Sos Baynat S/N, 12071, Castellón, Spain. UPV - Departamento de Sistemas Informáticos y Computación, Universitat Politècnica de València, Valencia, Spain.
 
 Creators Joaquín Torres-Sospedra, Raul Montoliu, Adolfo Martínez-Usó, Tomar J. Arnau, Joan P. Avariento, Mauri Benedito-Bordonau, Joaquín Huerta, Yasmina Andreu, óscar Belmonte, Vicent Castelló, Irene Garcia-Martí, Diego Gargallo, Carlos Gonzalez, Nadal Francisco, Josep López, Ruben Martínez, Roberto Mediero, Javier Ortells, Nacho Piqueras, Ianisse Quizán, David Rambla, Luis E. Rodríguez, Eva Salvador Balaguer, Ana Sanchís, Carlos Serra, and Sergi Trilles.
 
-Data Set Information:
----------------------
+Data Set Information
+--------------------
 
 Many real world applications need to know the localization of a user in the world to provide their services. Therefore, automatic user localization has been a hot research topic in the last years. Automatic user localization consists of estimating the position of the user (latitude, longitude and altitude) by using an electronic device, usually a mobile phone. Outdoor localization problem can be solved very accurately thanks to the inclusion of GPS sensors into the mobile devices. However, indoor localization is still an open problem mainly due to the loss of GPS signal in indoor environments. Although, there are some indoor positioning technologies and methodologies, this database is focused on WLAN fingerprint-based ones (also know as WiFi Fingerprinting).
 
@@ -112,3 +112,11 @@ Attribute Information:
 | 22      | Orange Monte Carlo | 2.3.5        | 17       |
 | 23      | Transformer TF101  | 4.0.3        | 2        |
 | 24      | bq Curie           | 4.1.1        | 12       |
+
+For this script I have decided to split the process in different files:
+
+[01 Preprocessing](https://github.com/raquelredo/Projects/blob/master/Indoor%20localization%20Wifi%20Footprint/01_Preprocessing.md)
+
+[02 Models for Longitude and Latitude](https://github.com/raquelredo/Projects/blob/master/Indoor%20localization%20Wifi%20Footprint/02_Models_Longitude_and_Latitude.md)
+
+[03 Other location values models](https://github.com/raquelredo/Projects/blob/master/Indoor%20localization%20Wifi%20Footprint/03_Other.md)
