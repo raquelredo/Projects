@@ -113,7 +113,7 @@ Attribute Information:
 | 23      | Transformer TF101  | 4.0.3        | 2        |
 | 24      | bq Curie           | 4.1.1        | 12       |
 
-For this script I have decided to split the process in different files:
+Regarding my script, as this is one of the longest coding I have done, I have decided to split the process in different files:
 
 [01 Preprocessing](https://github.com/raquelredo/Projects/blob/master/Indoor%20localization%20Wifi%20Footprint/01_Preprocessing.md)
 
