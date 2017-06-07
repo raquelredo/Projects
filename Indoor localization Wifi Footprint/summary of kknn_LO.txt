@@ -1,0 +1,70 @@
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4
+Summary
+
+Call:
+train.kknn(formula = LO ~ ., data = train, kmax = 5, trControl = ctrl,     method = "kknn", method = "optimal")
+
+Type of response variable: continuous
+minimal mean absolute error: 3.479484
+Minimal mean squared error: 86.37815
+Best kernel: optimal
+Best k: 4

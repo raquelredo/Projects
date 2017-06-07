@@ -1,0 +1,50 @@
+Summary
+
+Call:
+ randomForest(formula = LO ~ ., data = train, method = "rf", trControl = ctrl,      importance = TRUE, ntree = 500, maximize = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 30
+
+          Mean of squared residuals: 96.35986
+                    % Var explained: 99.37
+Summary
+
+Call:
+ randomForest(formula = LO ~ ., data = train, method = "rf", trControl = ctrl,      importance = TRUE, ntree = 500, maximize = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 30
+
+          Mean of squared residuals: 96.35986
+                    % Var explained: 99.37
+Summary
+
+Call:
+ randomForest(formula = LO ~ ., data = train, method = "rf", trControl = ctrl,      importance = TRUE, ntree = 500, maximize = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 30
+
+          Mean of squared residuals: 96.35986
+                    % Var explained: 99.37
+Summary
+
+Call:
+ randomForest(formula = LO ~ ., data = train, method = "rf", trControl = ctrl,      importance = TRUE, ntree = 500, maximize = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 30
+
+          Mean of squared residuals: 96.35986
+                    % Var explained: 99.37
+Summary
+
+Call:
+ randomForest(formula = LO ~ ., data = train, method = "rf", trControl = ctrl,      importance = TRUE, ntree = 500, maximize = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 30
+
+          Mean of squared residuals: 96.35986
+                    % Var explained: 99.37
