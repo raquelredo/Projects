@@ -3,6 +3,9 @@ Projects
 
 This is a brief introduction of some of the projects done. In most cases data sets are public therefore the source is pointed out in the correspondent README file. Enjoy!
 
+in R
+====
+
 Kaggle - Predict Fraud
 ----------------------
 
@@ -66,3 +69,17 @@ The main purpose is to analyze the Basket composition from purchase tickets to s
 -   Observations: 9835 ticket lists
 
 **Challenges:** Association Analysis per se
+
+in Python
+=========
+
+Kaggle - 911 Calls
+------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20911%20Calls%20Data%20exploration)
+
+-   Features: 9
+-   Observations: 205,580
+-   Tuples: 1,850,220
+
+**Challenges:** Work with different visualization tools | work with Python
