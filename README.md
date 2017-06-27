@@ -87,7 +87,7 @@ Kaggle - 911 Calls
 LendingClub
 -----------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/LendingClub)
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Lendingclub)
 
 For this project I will be exploring a public available data from [LendingClub.com](https://www.lendingclub.com/). LendingClub is a peer to peer lending platform connecting people who need money (the borrower) with people who have the money (investors). As an investor I would want to invest in people who sowed a profile of having a high probability of paying me back. I am going to create a model that will help me to predict this.
 
