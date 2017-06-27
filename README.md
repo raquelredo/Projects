@@ -83,3 +83,18 @@ Kaggle - 911 Calls
 -   Tuples: 1,850,220
 
 **Challenges:** Work with different visualization tools | work with Python
+
+LendingClub
+-----------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/LendingClub)
+
+For this project I will be exploring a public available data from [LendingClub.com](https://www.lendingclub.com/). LendingClub is a peer to peer lending platform connecting people who need money (the borrower) with people who have the money (investors). As an investor I would want to invest in people who sowed a profile of having a high probability of paying me back. I am going to create a model that will help me to predict this.
+
+I am going to use [data](../inputs/loan_data.csv) from 2007 to 2010 and be trying to classify and predict whether or not the borrower paid back their loan in full. Webpage repository with this dataset is [here](https://www.lendingclub.com/info/download-data.action)
+
+-   Features: 18
+-   Observations: 9,578
+-   Tuples: 172,404
+
+**Challenges:** ML with Python
