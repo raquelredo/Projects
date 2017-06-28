@@ -6,6 +6,8 @@ This is a brief introduction of some of the projects done. In most cases data se
 in R
 ====
 
+![](https://avatars2.githubusercontent.com/u/513560?v=3&s=200)
+
 Kaggle - Predict Fraud
 ----------------------
 
@@ -73,6 +75,8 @@ The main purpose is to analyze the Basket composition from purchase tickets to s
 in Python
 =========
 
+![](https://www.python.org/static/opengraph-icon-200x200.png)
+
 Kaggle - 911 Calls
 ------------------
 
@@ -98,3 +102,13 @@ I am going to use [data](../inputs/loan_data.csv) from 2007 to 2010 and be tryin
 -   Tuples: 172,404
 
 **Challenges:** ML with Python
+
+NLP - SMS Spam detection
+------------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/NLP%20-%20SMS)
+
+This dataset is a compendium from different sources, of SMS classified as Spam /Ham. We will need to build a model that easaly can detect when a SMS is relevant or not. Similarly to what, nowadays, spam filters do, NLP tools and techniques will help to do it.
+
+-   Observations: 5,574
+-   One label + one string as feature
