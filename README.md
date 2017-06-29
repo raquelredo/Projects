@@ -145,3 +145,14 @@ This data is the result of a Wavelet transformation on pictures of banknotes. Th
 -   Tuples: 4,116
 
 **Challenges:** use of Tensor Flow
+
+P02 Image Classification
+------------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/P02%20Image-classification)
+
+In this project, I'll classify images from the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html). The dataset consists of airplanes, dogs, cats, and other objects.
+
+The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
+
+**Challenges:** preprocess the images,build a convolutional, max pooling, dropout, and fully connected layers. Cloudcomputing using Floydhub.
