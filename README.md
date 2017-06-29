@@ -1,10 +1,10 @@
 Projects
 ================
 
-This is a brief introduction of some of the projects done. In most cases data sets are public therefore the source is pointed out in the correspondent README file. Enjoy!
+This is a brief introduction of some of the projects done concerning Machine Learning and Deep Learning models. In most cases data sets are public therefore the source is pointed out in the correspondent README file. Enjoy!
 
-in R
-====
+<span style="color:red">in R
+============================
 
 ![](https://avatars2.githubusercontent.com/u/513560?v=3&s=200)
 
@@ -72,8 +72,8 @@ The main purpose is to analyze the Basket composition from purchase tickets to s
 
 **Challenges:** Association Analysis per se
 
-in Python
-=========
+<span style="color:red">in Python
+=================================
 
 ![](https://www.python.org/static/opengraph-icon-200x200.png)
 
@@ -93,9 +93,9 @@ LendingClub
 
 [clic to go](https://github.com/raquelredo/Projects/tree/master/Lendingclub)
 
-For this project I will be exploring a public available data from [LendingClub.com](https://www.lendingclub.com/). LendingClub is a peer to peer lending platform connecting people who need money (the borrower) with people who have the money (investors). As an investor I would want to invest in people who sowed a profile of having a high probability of paying me back. I am going to create a model that will help me to predict this.
+For this project I will be exploring a public available data from [LendingClub.com](https://www.lendingclub.com/). Lending Club is a peer to peer lending platform connecting people who need money (the borrower) with people who have the money (investors). As an investor I would want to invest in people who sowed a profile of having a high probability of paying me back. I am going to create a model that will help me to predict this.
 
-I am going to use [data](../inputs/loan_data.csv) from 2007 to 2010 and be trying to classify and predict whether or not the borrower paid back their loan in full. Webpage repository with this dataset is [here](https://www.lendingclub.com/info/download-data.action)
+I am going to use [data](../inputs/loan_data.csv) from 2007 to 2010 and be trying to classify and predict whether or not the borrower paid back their loan in full. Webpage repository with this data set is [here](https://www.lendingclub.com/info/download-data.action)
 
 -   Features: 18
 -   Observations: 9,578
@@ -108,7 +108,38 @@ NLP - SMS Spam detection
 
 [clic to go](https://github.com/raquelredo/Projects/tree/master/NLP%20-%20SMS)
 
-This dataset is a compendium from different sources, of SMS classified as Spam /Ham. We will need to build a model that easaly can detect when a SMS is relevant or not. Similarly to what, nowadays, spam filters do, NLP tools and techniques will help to do it.
+This data set is a compendium from different sources, of SMS classified as Spam /Ham. We will need to build a model that easily can detect when a SMS is relevant or not. Similarly to what, nowadays, spam filters do, NLP tools and techniques will help to do it.
 
 -   Observations: 5,574
 -   One label + one string as feature
+
+**Challenges:** Natural Language Processing with Python
+
+<span style="color:red">Deep Learning
+=====================================
+
+P01 My first Neural Network
+---------------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/P01%20First-neural-Network)
+
+This project has been done in the context of [Udacity](https://www.udacity.com/)'s Deep Learning Nano degree. It is my first Neural Network and for that the challenges were multiple. This data set consists on information about a business bike rental. I need to build a NN to predict daily bike rental ridership.
+
+-   Features: 17
+-   Observations: 17,380
+-   Tuples: 295,460
+
+**Challenges:** My first Neural Network, understanding the concepts: back propagation, forward pass, gradient descent and their programming the math without using any deep learning package.
+
+Banknote authentication
+-----------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/)
+
+This data is the result of a Wavelet transformation on pictures of banknotes. The class to be predicted is whether the bank note has been forget or, on the contrary, it is authentic.
+
+-   Features: 3
+-   Observations: 1,372
+-   Tuples: 4,116
+
+**Challenges:** use of Tensor Flow
