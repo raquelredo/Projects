@@ -125,6 +125,8 @@ P01 My first Neural Network
 
 This project has been done in the context of [Udacity](https://www.udacity.com/)'s Deep Learning Nano degree. It is my first Neural Network and for that the challenges were multiple. This data set consists on information about a business bike rental. I need to build a NN to predict daily bike rental ridership.
 
+The dataset is from UCI repository and can be downloaded [here](https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset)
+
 -   Features: 17
 -   Observations: 17,380
 -   Tuples: 295,460
@@ -134,7 +136,7 @@ This project has been done in the context of [Udacity](https://www.udacity.com/)
 Banknote authentication
 -----------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/)
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/Bank%20Authentication)
 
 This data is the result of a Wavelet transformation on pictures of banknotes. The class to be predicted is whether the bank note has been forget or, on the contrary, it is authentic.
 
