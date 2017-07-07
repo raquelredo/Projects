@@ -19,3 +19,10 @@ Project 02. Image Classification
 In this project, I am classifying images from the CIFAR-10 dataset. The dataset consists of airplanes, dogs, cats, and other objects. The dataset will need to be preprocessed, then train a convolutional neural network on all the samples. I am normalizing the images, one-hot encode the labels, build a convolutional layer, max pool layer, and fully connected layer.
 
 The data is [here](https://www.cs.toronto.edu/~kriz/cifar.html)
+
+Project 03. TV Script generation
+--------------------------------
+
+In this project, I'll generate my own Simpsons TV script using RNNs. I'll be using part of the Simpsons dataset of scripts from 27 seasons. The Neural Network I'll build will generate a new TV script for a scene at Moe's Tavern.
+
+Full dataset can be found on Kaggle's database [here](https://www.kaggle.com/wcukierski/the-simpsons-by-the-data)
