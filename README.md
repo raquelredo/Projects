@@ -82,6 +82,8 @@ Kaggle - 911 Calls
 
 [clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20911%20Calls%20Data%20exploration)
 
+The intention here is just Explore the Dataset. Put in action some Data visualization libraries and tools.
+
 -   Features: 9
 -   Observations: 205,580
 -   Tuples: 1,850,220
@@ -156,3 +158,14 @@ In this project, I'll classify images from the [CIFAR-10 dataset](https://www.cs
 The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
 
 **Challenges:** preprocess the images,build a convolutional, max pooling, dropout, and fully connected layers. Cloudcomputing using Floydhub.
+
+P03 TV Script generation
+------------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/P03%20Script%20gen)
+
+In this project, I'll generate my own Simpsons TV script using RNNs. I'll be using part of the Simpsons dataset of scripts from 27 seasons. The Neural Network I'll build will generate a new TV script for a scene at Moe's Tavern.
+
+Full dataset can be found on Kaggle's database [here](https://www.kaggle.com/wcukierski/the-simpsons-by-the-data)
+
+**Challenges:** preprocess text (tokenization, embedding), build a recurrent Neural network, work with LSTM and Word2Vec arquitectures.
