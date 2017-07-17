@@ -26,3 +26,13 @@ Project 03. TV Script generation
 In this project, I'll generate my own Simpsons TV script using RNNs. I'll be using part of the Simpsons dataset of scripts from 27 seasons. The Neural Network I'll build will generate a new TV script for a scene at Moe's Tavern.
 
 Full dataset can be found on Kaggle's database [here](https://www.kaggle.com/wcukierski/the-simpsons-by-the-data).
+
+Project 04. English-to-french translator
+----------------------------------------
+
+I'll be training a sequence to sequence model on a dataset of English and French sentences that can translate new sentences from English to French. I have been provided with the a portion of the English corpus.
+
+Project 05.Face Generator
+-------------------------
+
+Using a Generative Adversarial Network I will generate face images.
