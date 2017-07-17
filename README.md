@@ -169,3 +169,21 @@ In this project, I'll generate my own Simpsons TV script using RNNs. I'll be usi
 Full dataset can be found on Kaggle's database [here](https://www.kaggle.com/wcukierski/the-simpsons-by-the-data)
 
 **Challenges:** preprocess text (tokenization, embedding), build a recurrent Neural network, work with LSTM and Word2Vec arquitectures.
+
+P04 Language Translator
+-----------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/P04%20Translation%20Project)
+
+In this project, I am going to take a peek into the realm of neural network machine translation. I'll be training a sequence to sequence model on a dataset of English and French sentences that can translate new sentences from English to French.
+
+**Challenges:** build a sequence to sequence architecture
+
+P05 Face Generation
+-------------------
+
+[clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/P05%20Face-generation)
+
+In this project, I am goiing to use Generative Adversarial Networks to generate new images of faces. The input will be a bunch of celebrities images that my generator will try to imitate so a new face is created and seen by the discriminator as "Real".
+
+**Challenges:** GAN
