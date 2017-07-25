@@ -120,6 +120,8 @@ This data set is a compendium from different sources, of SMS classified as Spam 
 <span style="color:red">Deep Learning
 =====================================
 
+![](https://www.polarising.com/site/wp-content/uploads/2017/04/deep-learning.png)
+
 P01 My first Neural Network
 ---------------------------
 
@@ -184,6 +186,6 @@ P05 Face Generation
 
 [clic to go](https://github.com/raquelredo/Projects/tree/master/Deep%20Learning/P05%20Face-generation)
 
-In this project, I am goiing to use Generative Adversarial Networks to generate new images of faces. The input will be a bunch of celebrities images that my generator will try to imitate so a new face is created and seen by the discriminator as "Real".
+In this project, I am going to use Generative Adversarial Networks to generate new images of faces. The input will be a bunch of celebrities images that my generator will try to imitate so a new face is created and seen by the discriminator as "Real".
 
 **Challenges:** GAN
