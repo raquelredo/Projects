@@ -1,6 +1,8 @@
 Projects
 ================
 
+<span style="color:green">Last update: 25th July 2017
+
 This is a brief introduction of some of the projects done concerning Machine Learning and Deep Learning models. In most cases data sets are public therefore the source is pointed out in the correspondent README file. Enjoy!
 
 <span style="color:red">in R
