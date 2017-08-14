@@ -120,8 +120,7 @@ PCA process already solves the problem for correlation between the V columns. I 
 m <- cor(data[c("Time", "Amount")])
 corrplot(m, method = "square", type = "lower")
 ```
-
-![](https://github.com/raquelredo/Projects/tree/blob/master/Machine%20Learning/Credit_Fraud_Script/CF-correlation-1.png?raw=true) 
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Credit_Fraud_Script/CF-correlation-1.png?raw=true)
 
 There is no correlation. So, we can keep both variables if we need them.
 
