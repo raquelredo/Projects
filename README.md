@@ -13,7 +13,7 @@ This is a brief introduction of some of the projects done concerning Machine Lea
 Kaggle - Predict Fraud
 ----------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20Predict%20Fraud)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Credit_Fraud_Script.md)
 
 Anonymized credit card transactions labeled as fraudulent or genuine. Anonymization has been achieved performing Principal Component Analysis. 492 frauds out of 284,807 transactions.
 
@@ -26,7 +26,7 @@ Anonymized credit card transactions labeled as fraudulent or genuine. Anonymizat
 Kaggle - Human Resources Analytics
 ----------------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20Human%20Resources%20Analytics)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/HR_analytics.md)
 
 Why are our best and most experienced employees leaving prematurely?
 
@@ -39,7 +39,7 @@ Why are our best and most experienced employees leaving prematurely?
 Indoor localization wifi Footprint
 ----------------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Indoor%20localization%20Wifi%20Footprint)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint.md)
 
 Many real world applications need to know the localization of a user in the world to provide their services. Therefore, automatic user localization has been a hot research topic in the last years. Automatic user localization consists of estimating the position of the user (latitude, longitude and altitude) by using an electronic device, usually a mobile phone. Outdoor localization problem can be solved very accurately thanks to the inclusion of GPS sensors into the mobile devices. However, indoor localization is still an open problem mainly due to the loss of GPS signal in indoor environments. Although, there are some indoor positioning technologies and methodologies, this database is focused on WLAN fingerprint-based ones (also know as WiFi Fingerprinting).
 
@@ -52,7 +52,7 @@ Many real world applications need to know the localization of a user in the worl
 Kaggle - Titanic survival prediction
 ------------------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20Titanic%20survival%20prediction)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script.md)
 
 It is your job to predict if a passenger survived the sinking of the Titanic or not.
 
@@ -65,7 +65,7 @@ It is your job to predict if a passenger survived the sinking of the Titanic or 
 Association with Market Basket Analysis (MBA)
 ---------------------------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Association%20-%20Market%20Basket%20analysis)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/MBA_Script.md)
 
 The main purpose is to analyze the Basket composition from purchase tickets to study how consumers buy products together. This analysis might the foundation base for a cluster customer analysis or a product system recommendation.
 
@@ -82,7 +82,7 @@ The main purpose is to analyze the Basket composition from purchase tickets to s
 Kaggle - 911 Calls
 ------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Kaggle%20-%20911%20Calls%20Data%20exploration)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration.md)
 
 The intention here is just Explore the Dataset. Put in action some Data visualization libraries and tools.
 
@@ -95,7 +95,7 @@ The intention here is just Explore the Dataset. Put in action some Data visualiz
 LendingClub
 -----------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/Lendingclub)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Lendingclub_project.md)
 
 For this project I will be exploring a public available data from [LendingClub.com](https://www.lendingclub.com/). Lending Club is a peer to peer lending platform connecting people who need money (the borrower) with people who have the money (investors). As an investor I would want to invest in people who sowed a profile of having a high probability of paying me back. I am going to create a model that will help me to predict this.
 
@@ -110,7 +110,7 @@ I am going to use [data](../inputs/loan_data.csv) from 2007 to 2010 and be tryin
 NLP - SMS Spam detection
 ------------------------
 
-[clic to go](https://github.com/raquelredo/Projects/tree/master/NLP%20-%20SMS)
+[clic to go](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Spam_detection.md)
 
 This data set is a compendium from different sources, of SMS classified as Spam /Ham. We will need to build a model that easily can detect when a SMS is relevant or not. Similarly to what, nowadays, spam filters do, NLP tools and techniques will help to do it.
 
