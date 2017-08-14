@@ -111,7 +111,7 @@ Items at least with 10% support.
 itemFrequencyPlot(groceries, support = 0.1)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-7-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-7-1.png?raw=true)
 
 Frequency Plot for the top 20 items
 
@@ -119,7 +119,7 @@ Frequency Plot for the top 20 items
 itemFrequencyPlot(groceries, topN = 20)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-8-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-8-1.png?raw=true)
 
 It is also possible to visualize the entire Sparse Matrix:
 
@@ -127,13 +127,13 @@ It is also possible to visualize the entire Sparse Matrix:
 image(groceries[1:5])
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-9-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-9-1.png?raw=true)
 
 ``` r
 image(sample(groceries, 100))
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-9-2.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-9-2.png?raw=true)
 
 # Building the Model
 
@@ -335,7 +335,7 @@ Except for the cat-food item, the other products seem to be purchased also for b
 ``` r
 plot(rules,method="graph",interactive=TRUE,shading=NA)
 ```
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-19-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-19-1.png?raw=true)
 
 ## Save rules
 

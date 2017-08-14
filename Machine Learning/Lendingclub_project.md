@@ -380,7 +380,7 @@ loans[loans["credit.policy"]==1]["fico"].hist(alpha = 0.5, color = "blue", bins 
 loans[loans["credit.policy"]==0]["fico"].hist(alpha = 0.5, color = "red", bins = 30, label = "Credit Policy 0")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_9_1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_9_1.png?raw=true)
 
 
 Now, I will do similar for `not.fully.paid`column
@@ -393,7 +393,7 @@ loans[loans["not.fully.paid"]==0]["fico"].hist(alpha = 0.5, color = "red", bins 
 ```
 
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_11_1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_11_1.png?raw=true)
 
 
 Let's talk about countplots
@@ -413,7 +413,7 @@ sns.jointplot( x= "fico", y = "int.rate", data = loans, color = "purple")
 ```
 
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_15_1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_15_1.png?raw=true)
 
 
 ```python
@@ -421,7 +421,7 @@ plt.figure(figsize = (11,7))
 sns.lmplot( y = "int.rate", x = "fico", data = loans, hue = "credit.policy", col = "not.fully.paid", palette = "Set1")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_16_2.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Lendingclub_project/Lendingclub_project_16_2.png?raw=true)
 
 
 # Setting up the Data

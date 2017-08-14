@@ -328,21 +328,21 @@ head(princ, 10)
 screeplot(princ,npcs = 80)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-unnamed-chunk-17-1.png?raw=true) 
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-unnamed-chunk-17-1.png?raw=true) 
 # Variance Let's start plotting it.
 
 ``` r
 plot(princ, xlab = "var")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Variance-1.png?raw=true) How much of the Total Variance explains each component?
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Variance-1.png?raw=true) How much of the Total Variance explains each component?
 
 ``` r
 variance <- princ$sdev^2/sum(princ$sdev^2)*100
 plot(variance, type = "line", col = "red")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-unnamed-chunk-18-1.png?raw=true) 
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-unnamed-chunk-18-1.png?raw=true) 
 
 As a rule of a thumb features explaining 80% of the variance are enough to build a good model. In our new data set our 92 first PCA's fulfill that requirement.
 
@@ -413,13 +413,13 @@ ggplot(trainingData, aes(LONGITUDE,
   theme(legend.position = "bottom")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Building%20ID-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Building%20ID-1.png?raw=true)
 
 I can see the shapes of the buldings. Also I can recognise when looking in Google map, which building is. It is part of the University Campus from [Universitat Jaume I](https://www.google.es/maps/place/Universitat+Jaume+I/@39.9929222,-0.0676806,17z/data>=!4m5!3m4!1s0xd5ffe0fca9b5147:0x1368bf53b3a7fb3f!8m2!3d39.9945711!4d-0.0689003?hl=es) ,in Castelló, Spain. Not surprisingly, is the University in which attend this data set owners. The plot shows the coherence of the data collected. It seems there is no mistake in its collection.
 
 I have drawn its shape on the map.
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-gmap.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-gmap.png?raw=true)
 
 ## Plot 2 - Relative Position
 
@@ -446,7 +446,7 @@ ggplot(trainingData, aes(as.character(BUILDINGID),
     ggtitle("Space ID vs Building")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Plot%203%20-%20Space%20Id-1.png?raw=true) 
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Plot%203%20-%20Space%20Id-1.png?raw=true) 
 
 Space is not unique!
 
@@ -463,7 +463,7 @@ scatterplot3d( x= trainingData$LATITUDE,
                pch = 20)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Longitude,%20latitude%20and%20Floor-1.png?raw0true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Longitude,%20latitude%20and%20Floor-1.png?raw0true)
 
 ## Basic Exploration
 
@@ -482,7 +482,7 @@ missmap(trainingData)#there is no missing values
 missmap(validationData)#there is no missing values
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Missing%20values-2.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Missing%20values-2.png?raw=true)
 
 ## Plot 5 - Correlation Matrices
 
@@ -494,7 +494,7 @@ corr2 <- trainingData2[,]
 ggcorr(corr1, label = TRUE)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices-1.png?raw=true)
 
 there are so many features that we are not able to see correlation between them.
 
@@ -502,28 +502,28 @@ there are so many features that we are not able to see correlation between them.
 ggcorr(corr2, label = TRUE)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices2-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices2-1.png?raw=true)
 
 ``` r
 library(corrplot)
 corrplot(corr1, method = "square", type ="upper")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices3-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices3-1.png?raw=true)
 
 ``` r
 #
 ggpairs(corr2)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices3-2.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Correlation%20Matrices3-2.png?raw=true)
 
 ``` r
 library(psych)
 pairs.panels(trainingData2)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-panel-1.png?raw?true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-panel-1.png?raw?true)
 
 # Visualizing PCA
 
@@ -541,7 +541,7 @@ fviz_eig(princ, addlabels = TRUE,
          barcolor ="darkblue")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-perc.%20of%20the%20Variance-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-perc.%20of%20the%20Variance-1.png?raw=true)
 
 ## Plot 7 - Factor map PCA colored
 
@@ -554,7 +554,7 @@ fviz_pca_var(princ, col.var="cos2") +
                         midpoint=0.5) + theme_minimal()
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Factor%20map%20PCA%20colored-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Factor%20map%20PCA%20colored-1.png?raw=true)
 
 ## Plot 8 - Eigenvalue
 
@@ -564,7 +564,7 @@ fviz_eig(princ, choice = "eigenvalue",
          addlabels=TRUE)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Eigenvalue-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Indoor_localization_Wifi_Footprint/Wf-Eigenvalue-1.png?raw=true)
 
 # PART 2: MODELS FOR LONGITUDE & LATITUDE & ALTITUDE(FLOOR)
 

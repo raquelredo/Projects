@@ -254,7 +254,7 @@ import seaborn as sns
 messages["length"].plot(bins = 40, kind = "hist")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Spam_detection/Spam%20detection_11_1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Spam_detection/Spam%20detection_11_1.png?raw=true)
 
 
 ```python
@@ -286,7 +286,7 @@ messages[messages["length"]==910]["message"].iloc[0]
 ```python
 messages.hist(column = "length", by = "label", bins = 50, figsize = (12, 4))
 ```
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Spam_detection/Spam%20detection_15_1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Spam_detection/Spam%20detection_15_1.png?raw=true)
 
 
 It seems that chances that a message is spam are bigger when the string length is longer

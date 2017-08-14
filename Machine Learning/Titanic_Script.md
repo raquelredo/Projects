@@ -195,7 +195,7 @@ missmap(train)
 missmap(test)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-8-2.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-8-2.png?raw=true)
 
 ``` r
 is.na(train$Age)#index of MV
@@ -388,7 +388,7 @@ ggplot(train, aes(x = Survived, y=..count.., fill = Survived)) +
   geom_bar()
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-17-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-17-1.png?raw=true)
 
 ### Survival by age bins
 
@@ -398,14 +398,14 @@ ggplot(data=train, aes(x=Age))+
                                             fill = Survived))
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-18-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-18-1.png?raw=true)
 
 ``` r
 boxplot(train$Age ~ train$Survived, main= "Passenger survival by age",
         xlab = "Survived", ylab = "Age")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-19-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-19-1.png?raw=true)
 
 Does `Gender` as anything to do with survival?
 
@@ -423,7 +423,7 @@ table(train$Pclass, train$male)
 ggplot(train, aes(x=male, fill=Survived)) + geom_bar()
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-21-1.png?raw?true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-21-1.png?raw?true)
 
 Number of family members on board
 
@@ -431,13 +431,13 @@ Number of family members on board
 ggplot(train, aes(x=SibSp, fill=Survived)) + geom_bar()
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-22-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-22-1.png?raw=true)
 
 ``` r
 ggplot(train, aes(x=Parch, fill=Survived)) + geom_bar()
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-23-1.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Titanic_Script/Titanic-unnamed-chunk-23-1.png?raw=true)
 
 ### Transforming Age to bins
 

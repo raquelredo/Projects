@@ -175,7 +175,6 @@ for (i in seq_along(variables)) {
 ```
 Histograms and density plots are, now, stored in the wd. I will load one here to show its shape.
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/HR_analytics/HR-plot_average_monthly_hours.png?raw=true)
 
 ## Normalization
 
@@ -472,14 +471,12 @@ cluster$centers
 plotcluster(hr[,1:5], cluster$cluster)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/HR_analytics/HR-unnamed-chunk-27-1.png?raw=true)
 
 ``` r
 clusplot(hr[,1:5], cluster$cluster, color=TRUE, shade=TRUE,
          labels=2, lines=0)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/HR_analytics/HR-unnamed-chunk-28-1.png?raw=true)
 
 It seems there are not clear clusters in this data sets.
 
