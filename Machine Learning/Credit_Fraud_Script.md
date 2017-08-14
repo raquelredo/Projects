@@ -169,7 +169,7 @@ for (i in seq_along(variables)) {
 ```
 All plots are saved in my working directory. But let's show one of them.
 
-![](https://github.com/raquelredo/Projects/tree/blob/master/Machine%20Learning/Credit_Fraud_Script/CF-plot_V11.png?raw=true)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Credit_Fraud_Script/CF-plot_V11.png?raw=true)
 
 # Building the model
 
