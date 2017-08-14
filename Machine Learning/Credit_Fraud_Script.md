@@ -1,16 +1,3 @@
----
-title: "Credit Card Fault detection"
-output: github_document
-excerpt: "Are we able to predict credit card fraud in online transactions?
-Anonymized credit card transactions labeled as fraudulent or genuine. Anonymization has been achieved performing Principal Component Analysis. 492 frauds out of 284,807 transactions.
-
--   Features: 30
--   Observations: 284,807
--   Tuples: 8,544,210
-
-**Challenges:** Imbalanced data | Understanding PCA"
-tags: [R, dplyr, ggplot2, unbalanced data, fraud, logistic, tree, AUC, kaggle]
----
 ## Dataset
 Anonymized credit card transactions labelled as fraudulent or genuine.
 Dataset can be downloaded from Kaggle site in the following [link. ][4e2f2e50]
@@ -103,7 +90,7 @@ The first thing I like to know is if there are missing values in my dataset. I l
 missmap(data)
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Credit_Fraud_Script/CF-Missing%20V-1.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Credit_Fraud_Script/CF-Missing%20V-1.png?raw=true)
 
 Class should be a factor, not a type number.
 
