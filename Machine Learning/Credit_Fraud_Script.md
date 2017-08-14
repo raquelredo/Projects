@@ -121,7 +121,9 @@ m <- cor(data[c("Time", "Amount")])
 corrplot(m, method = "square", type = "lower")
 ```
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Credit_Fraud_Script/CF-correlation-1.png) We can keep both variables if we need them.
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Credit_Fraud_Script/CF-correlation-1.png?raw=true) 
+
+There is no correlation. So, we can keep both variables if we need them.
 
 # Data visualization
 
@@ -168,7 +170,7 @@ for (i in seq_along(variables)) {
 ```
 All plots are saved in my working directory. But let's show one of them.
 
-![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Credit_Fraud_Script/CF-plot_V11.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/Credit_Fraud_Script/CF-plot_V11.png?raw=true)
 
 # Building the model
 
