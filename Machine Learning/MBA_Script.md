@@ -1,21 +1,3 @@
----
-title: "Market Basket Analysis"
-layout: post
-excerpt:  "Which products are more alike to be bought together?
-The main purpose is to analyze the Basket composition from purchase tickets to study how consumers buy products together. This analysis might the foundation base for a cluster customer analysis or a product system recommendation.
-
--   Type: list of lists
--   Observations: 9835 ticket lists
-
-**Challenges:** Association Analysis per se"
-header:
-  teaser: market-basket-analysis.jpg
-link:
-tags: [R, MBA, asociation rules, set, support, confidence, lift]
-share: true
-categories: portfolio
----
-
 ### Dataset
 
 The dataset is a list of a list. It contains 9,835 grocery purchased tickets. Each line on the file represents one ticket. Items are labelled and separated by a comma. Style is:
@@ -129,7 +111,7 @@ Items at least with 10% support.
 itemFrequencyPlot(groceries, support = 0.1)
 ```
 
-![](/MBA-unnamed-chunk-7-1.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-7-1.png?raw=true)
 
 Frequency Plot for the top 20 items
 
@@ -137,7 +119,7 @@ Frequency Plot for the top 20 items
 itemFrequencyPlot(groceries, topN = 20)
 ```
 
-![](/MBA-unnamed-chunk-8-1.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-8-1.png?raw=true)
 
 It is also possible to visualize the entire Sparse Matrix:
 
@@ -145,13 +127,13 @@ It is also possible to visualize the entire Sparse Matrix:
 image(groceries[1:5])
 ```
 
-![](/MBA-unnamed-chunk-9-1.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-9-1.png?raw=true)
 
 ``` r
 image(sample(groceries, 100))
 ```
 
-![](/MBA-unnamed-chunk-9-2.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-9-2.png?raw=true)
 
 # Building the Model
 
@@ -353,7 +335,7 @@ Except for the cat-food item, the other products seem to be purchased also for b
 ``` r
 plot(rules,method="graph",interactive=TRUE,shading=NA)
 ```
-![](/MBA-unnamed-chunk-19-1.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/MBA_Script/MBA-unnamed-chunk-19-1.png?raw=true)
 
 ## Save rules
 

@@ -1,22 +1,3 @@
----
-title: "911 Data Exploration"
-layout: post
-excerpt: "Using some Python data exploration libraries.
-The intention here is just Explore the Dataset. Put in action some Data visualization libraries and tools.
-
--   Features: 9
--   Observations: 205,580
--   Tuples: 1,850,220
-
-**Challenges:** Work with different visualization tools | work with Python"
-tags: [python, seaborn, matplotlib, numpy, pandas]
-categories: portfolio
-header:
-  teaser: call-center.png
-link:
-share: true
-comments: false
----
 
 This kernel is about some data exploration with plots on the Dataset 911 Emergency Calls. I  am using it to practice some Python visualization skills learned from Jose Portilla's Python course at [Udemy][9295e9ed], as well as a show window for newbies on Python. Let's start!
 
@@ -232,7 +213,7 @@ sns.countplot( x= "Reason", data = df, palette = "viridis")
 
 
 
-![](/Data%20Exploration_16_1.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration/Data%20Exploration_16_1.png?raw=true)
 
 
 Ther is no doubt that the biggest numbers are for calls `EMS` (Emergency Medical Service), followed by `traffic` and more far away for `Fire reasons`
@@ -300,7 +281,7 @@ plt.legend(bbox_to_anchor = (1.05, 1), loc = 2,  borderaxespad = 0.)
 ```
 
 
-![](/Data%20Exploration_26_1.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration/Data%20Exploration_26_1.png?raw=true)
 
 
 We do have much more stability on count numbers if we look within the week days. A bit difference is seen in `Traffic`calls value. Not surprisingly Saturday and Sundays there is a valley on the number of calls. Is it because weekends people are much more relaxed and have better driving? is it because there are fewer cars on the street?
@@ -315,7 +296,7 @@ plt.legend(bbox_to_anchor = (1.05, 1), loc = 2,  borderaxespad = 0.)
 ```
 
 
-![](/Data%20Exploration_29_1.png)
+![](/Data%20Exploration_29_1.png?raw=true)
 
 
 It seems that colder months are more sensible in `EMS` ocurrences as well as the other reasons.
@@ -345,7 +326,7 @@ df.groupby("Date").count()["twp"].plot()
 plt.tight_layout()
 ```
 
-![](Data%20Exploration_34_0.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration/Data%20Exploration_34_0.png?raw=true)
 
 
 the same, but now separating each `Reason`:
@@ -376,7 +357,7 @@ plt.tight_layout()
 ```
 
 
-![](/Data%20Exploration_38_0.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration/Data%20Exploration_38_0.png?raw=true)
 
 
 ## Heat maps Time!
@@ -636,7 +617,7 @@ plt.figure(figsize = (12,6)) #canvas size
 sns.heatmap(dayHour, cmap = "viridis")
 ```
 
-![](/Data%20Exploration_42_1.png)
+![](/Data%20Exploration_42_1.png?raw=true)
 
 
 As we can observe daylight hours are more usual to have 911 calls than night time. Quite an intuitive answer, as at those hours much more people is awake, therefore there is much more chance of some event occurrence than other hours with most people is resting at home.
@@ -648,7 +629,7 @@ Now I will create a cluster map using this DataFrame.
 sns.clustermap(dayHour, cmap = "viridis")
 ```
 
-![](/Data%20Exploration_45_2.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration/Data%20Exploration_45_2.png?raw=true)
 
 
 now, I will repeat but using the `Month` as the column
@@ -833,4 +814,4 @@ sns.clustermap(dayMonth, cmap = "viridis")
 ```
 
 
-![](/Data%20Exploration_49_2.png)
+![](https://github.com/raquelredo/Projects/blob/master/Machine%20Learning/Data_Exploration/Data%20Exploration_49_2.png?raw=true)

@@ -1,23 +1,3 @@
----
-title: "Human Resources Analytics"
-layout: post
-excerpt:  "Why are our best and most experienced employees leaving prematurely?
-Why are our best and most experienced employees leaving prematurely?
-
--   Features: 9
--   Observations: 14,999
--   Tuples: 134,991
-
-**Challenges:** Detect outliers"
-tags: [R, kaggle, PCA, HR, logistic, tree, AUC]
-header:
-  teaser: Work.png
-link:
-share: true
-categories: portfolio
-comments: false
----
-
 ### Dataset
 Dataset can be downloaded from Kaggle site [here](https://www.kaggle.com/ludobenistant/hr-analytics/downloads/HR_comma_sep.csv)
 
@@ -195,7 +175,7 @@ for (i in seq_along(variables)) {
 ```
 Histograms and density plots are, now, stored in the wd. I will load one here to show its shape.
 
-![](/HR-plot_average_monthly_hours.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/HR_analytics/HR-plot_average_monthly_hours.png?raw=true)
 
 ## Normalization
 
@@ -492,14 +472,14 @@ cluster$centers
 plotcluster(hr[,1:5], cluster$cluster)
 ```
 
-![](/HR-unnamed-chunk-27-1.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/HR_analytics/HR-unnamed-chunk-27-1.png?raw=true)
 
 ``` r
 clusplot(hr[,1:5], cluster$cluster, color=TRUE, shade=TRUE,
          labels=2, lines=0)
 ```
 
-![](/HR-unnamed-chunk-28-1.png)
+![](https://github.com/raquelredo/Projects/tree/master/Machine%20Learning/HR_analytics/HR-unnamed-chunk-28-1.png?raw=true)
 
 It seems there are not clear clusters in this data sets.
 
