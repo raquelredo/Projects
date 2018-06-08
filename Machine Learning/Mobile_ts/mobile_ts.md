@@ -55,13 +55,7 @@ os.chdir("Path")
 ```
 
 
-```python
-#@hidden cell
-os.chdir("D:\\Dropbox\\github\\Projects\\Machine Learning\\Mobile_ts") # to use in my Mountain pc
-#%os.chdir("C:\\Users\\Raquel\\Dropbox\\GitHub\\Projects/Machine Learning\\Mobile_ts") #to use in my MSurface pc
-```
-
-The data has been compiled in a serie of different csv files. In order to have a full time serie and practise some data wrangling ,  I want to create an unique dataset from all these files.
+The data has been compiled in a serie of different csv files. In order to have a full time serie and practise some data wrangling I will   create an unique dataset from all these files.
 
 
 ```python
@@ -81,11 +75,6 @@ os.listdir(".") #List current folder
 
 
 
-
-```python
-#@hidden cell
-root = "D:\\Dropbox\\github\\Projects\\Machine Learning\\Mobile_ts\\A_DeviceMotion_data"
-```
 
 
 ```python
