@@ -73,15 +73,15 @@ os.listdir(".") #List current folder
      'mobile_ts.ipynb',
      'mobile_ts.md',
      'output.csv',
-     'output2.csv',
-     'output3.csv',
-     'output4.csv',
-     'output_1.csv',
-     'output_original.csv']
+     'README.md']
 
 
 
 
+```python
+#----------ERASE-------------
+root = "D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts\\A_DeviceMotion_data"
+```
 
 
 ```python
@@ -131,7 +131,7 @@ bigframe.columns = ["time", "roll", "pitch", "yaw",
                     "gr_x", "gr_y", "gr_z", 
                     "rot_x", "rot_y", "rot_z",
                     "acc_x", "acc_y", "acc_z", 
-                    "activity", "subject", "act_id"] 
+                    "activity", "code", "act_id"] 
 ```
 
 
@@ -155,29 +155,83 @@ Let's take a look what it look like now:
 
 
 ```python
-print(bigframe).head()
+print(bigframe.head(2))
 ```
 
        time      roll     pitch       yaw      gr_x      gr_y      gr_z     rot_x  \
     0     0  1.528132 -0.733896  0.696372  0.741895  0.669768 -0.031672  0.316738   
     1     1  1.527992 -0.716987  0.677762  0.753099  0.657116 -0.032255  0.842032   
-    2     2  1.527765 -0.706999  0.670951  0.759611  0.649555 -0.032707 -0.138143   
-    3     3  1.516768 -0.704678  0.675735  0.760709  0.647788 -0.041140 -0.025005   
-    4     4  1.493941 -0.703918  0.672994  0.760062  0.647210 -0.058530  0.114253   
     
-          rot_y     rot_z     acc_x     acc_y     acc_z activity subject act_id  \
-    0  0.778180  1.082764  0.294894 -0.184493  0.377542      dws       1      1   
-    1  0.424446  0.643574  0.219405  0.035846  0.114866      dws       1      1   
-    2 -0.040741  0.343563  0.010714  0.134701 -0.167808      dws       1      1   
-    3 -1.048717  0.035860 -0.008389  0.136788  0.094958      dws       1      1   
-    4 -0.912890  0.047341  0.199441  0.353996 -0.044299      dws       1      1   
+          rot_y     rot_z     acc_x     acc_y     acc_z activity code act_id  \
+    0  0.778180  1.082764  0.294894 -0.184493  0.377542      dws    1      1   
+    1  0.424446  0.643574  0.219405  0.035846  0.114866      dws    1      1   
     
       label_len  
     0      long  
     1      long  
-    2      long  
-    3      long  
-    4      long  
+    
+
+We have also some information concerning hour subjects: weight, height, age and gender.
+
+
+```python
+subjects = pd.read_csv("data_subjects_info.csv")
+```
+
+
+```python
+print(subjects.head(4))
+```
+
+       code  weight  height  age  gender
+    0     1     102     188   46       1
+    1     2      72     180   28       1
+    2     3      48     161   28       0
+    3     4      90     176   31       1
+    
+
+I will incorpore this information to my big dataset.
+
+
+```python
+print(subjects.code.dtypes)
+```
+
+    int64
+    
+
+
+```python
+print(bigframe.code.dtypes)
+```
+
+    object
+    
+
+We need both values to be the sme type for the merging
+
+
+```python
+bigframe["code"] = bigframe["code"].apply(int)
+```
+
+
+```python
+pd.merge(bigframe, subjects, how = "left", on = "code")
+print(bigframe.head(2))
+```
+
+       time      roll     pitch       yaw      gr_x      gr_y      gr_z     rot_x  \
+    0     0  1.528132 -0.733896  0.696372  0.741895  0.669768 -0.031672  0.316738   
+    1     1  1.527992 -0.716987  0.677762  0.753099  0.657116 -0.032255  0.842032   
+    
+          rot_y     rot_z     acc_x     acc_y     acc_z activity  code act_id  \
+    0  0.778180  1.082764  0.294894 -0.184493  0.377542      dws     1      1   
+    1  0.424446  0.643574  0.219405  0.035846  0.114866      dws     1      1   
+    
+      label_len  
+    0      long  
+    1      long  
     
 
 Saving our final result is never a bad option.
@@ -186,3 +240,7 @@ Saving our final result is never a bad option.
 ```python
 bigframe.to_csv("output.csv", index = True, header = True)
 ```
+
+## Exploratory Data Analysis
+
+Now that we have our data set, let's begin our EDA.
