@@ -1181,7 +1181,7 @@ f+facet_grid(gender~activity)
 ```
 
 
-<img src="images/output_76_0.png")
+<img src="images/output_76_0.png">
 
 
 Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
