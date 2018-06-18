@@ -82,7 +82,11 @@ I will continue setting my working directoy. The cell has been hidden to preserv
 ```
 
 
-
+```python
+#----------ERASE-------------
+os.chdir("D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts") # to use in my Mountain pc
+#%os.chdir("C:\\Users\\Raquel\\Dropbox\\GitHub\\Projects/Machine Learning\\Mobile_ts") #to use in my MSurface pc
+```
 
 The data has been compiled in a serie of different csv files. In order to have a full time serie and practise some data wrangling ,  I want to create an unique dataset from all these files.
 
@@ -114,7 +118,10 @@ os.listdir(".") #List current folder
 
 
 
-
+```python
+#----------ERASE-------------
+root = "D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts\\A_DeviceMotion_data"
+```
 
 
 ```python
@@ -1160,24 +1167,20 @@ df2.head()
 df2.to_csv("df2.csv", header = True)
 ```
 
+I am going to mix programming languages in this kernel as R is a much suitable tool for Data Visualization. For that purpose I am using `rpy2` package.
+
 
 ```python
 %load_ext rpy2.ipython
 ```
 
 
-```python
-#from rpy2.robjects.packages import importr
-```
-
-
 ```r
 %%R
 # import R packages if they are not installed
-list.of.packages <- c("ggplot2", "tidyr", "dplyr")
+list.of.packages <- c("ggplot2", "tidyr", "dplyr", "gridExtra")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.us.r-project.org")
-
 ```
 
 
@@ -1187,35 +1190,88 @@ if(length(new.packages)) install.packages(new.packages, repos = "http://cran.us.
 library(ggplot2)
 library(tidyr)
 library(dplyr)
+library(gridExtra)
 ```
 
 
 ```r
 %%R -i df2
-long <- filter(df2, label_len == "long")
-short <- filter(df2, label_len == "short")
+
+plotg1 <- df2 %>% filter(label_len == "long") %>% ggplot(aes(time, metric, col=variable)) + geom_line() + facet_grid(gender~activity, scales = "free")+ ggtitle("Long Activities | Mean")
+plotg2 <- df2 %>% filter(label_len == "short") %>% ggplot(aes(time, metric, col=variable)) + geom_line() + facet_grid(gender~activity, scales = "free")+ ggtitle("Short Activities | Mean")
+
+grid.arrange(plotg1, plotg2)
 ```
+
+
+![png](output_76_0.png)
+
+
+Let's focus a bit our visualization. I am going to plot the mean of the metrics for **`long` `ups`** and **`short``ups`** for both genders.
 
 
 ```r
 %%R
-f <- ggplot(long, aes(time, metric, col=variable)) + geom_line()
-f+facet_grid(gender~activity)
+plot1<- df2 %>% filter(label_len == "long", activity =="ups", gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female")
+plot2<-df2 %>% filter(label_len == "long", activity == "ups", gender ==1) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")
+grid.arrange(plot1, plot2)
 ```
 
 
-![png]("images/output_77_0.png)
+![png](output_78_0.png)
+
+
+Rotation
+
+
+```r
+%%R
+#Rotation
+rotation <- c("rot_x", "rot_y", "rot_z")
+plot3<- df2 %>% filter(label_len == "long", activity =="ups", variable == rotation, gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female")+ labs(y="Rotation")
+plot4<-df2 %>% filter(label_len == "long", activity == "ups", variable == rotation, gender ==1) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")+ labs(y="Rotation")
+
+#Gravity
+gravity <- c("gr_x", "gr_y", "gr_z")
+plot5<- df2 %>% filter(label_len == "long", activity =="ups", variable == gravity, gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Gravity")
+plot6<-df2 %>% filter(label_len == "long", activity == "ups", variable == gravity, gender ==1) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male") + labs(y="Gravity")
+
+grid.arrange(plot3, plot4, plot5, plot6)
+```
+
+
+![png](output_80_0.png)
 
 
 
 ```r
 %%R
-f <- ggplot(short, aes(time, metric, col=variable)) + geom_line()
-f+facet_grid(gender~activity)
+
+#Accuracy
+accuracy <- c("acc_x", "acc_y", "acc_z")
+plot7<- df2 %>% filter(label_len == "long", activity =="ups", variable == accuracy, gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Accuracy")
+plot8<-df2 %>% filter(label_len == "long", activity == "ups", variable == accuracy, gender ==1) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male") + labs(y="Accuracy")
+
+#Pitch, roll, yaw
+other <- c("pitch", "roll", "yaw")
+plot9<- df2 %>% filter(label_len == "long", activity =="ups", variable == other, gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Other")
+plot10<-df2 %>% filter(label_len == "long", activity == "ups", variable == other, gender ==1) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")+ labs(y="Other")
+
+grid.arrange(plot7, plot8, plot9, plot10)
 ```
 
 
-![png]("images/output_78_0.png)
+![png](output_81_0.png)
 
 
 Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
