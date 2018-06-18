@@ -83,6 +83,7 @@ I will continue setting my working directoy. The cell has been hidden to preserv
 
 
 
+
 The data has been compiled in a serie of different csv files. In order to have a full time serie and practise some data wrangling ,  I want to create an unique dataset from all these files.
 
 
@@ -102,6 +103,7 @@ os.listdir(".") #List current folder
      'Data_visualization.R',
      'df2.csv',
      'images',
+     'mobile_ts',
      'mobile_ts.ipynb',
      'mobile_ts.md',
      'output.csv',
@@ -313,7 +315,7 @@ os.chdir("D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts")
 df = pd.read_csv("output.csv", index_col = 0)
 ```
 
-    D:\Anaconda3\lib\site-packages\numpy\lib\arraysetops.py:472: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+    D:\Anaconda3\envs\mobile_r_py\lib\site-packages\numpy\lib\arraysetops.py:472: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
       mask |= (ar1 == a)
     
 
@@ -893,7 +895,7 @@ numerical = ("roll", "pitch", "yaw", "gr_x", "gr_y", "gr_z","rot_x", "rot_y", "r
 ```python
 #long = df["label_len"].filter("long", df)
 df = df.reset_index()
-summary_mean = df.groupby(by= ["time","activity", "gender"])[numerical].mean()
+summary_mean = df.groupby(by= ["time","activity", "gender", "label_len"])[numerical].mean()
 ```
 
 
@@ -924,6 +926,7 @@ summary_mean.tail(5)
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
       <th>roll</th>
       <th>pitch</th>
       <th>yaw</th>
@@ -941,6 +944,7 @@ summary_mean.tail(5)
       <th>time</th>
       <th>activity</th>
       <th>gender</th>
+      <th>label_len</th>
       <th></th>
       <th></th>
       <th></th>
@@ -960,6 +964,7 @@ summary_mean.tail(5)
       <th>16419</th>
       <th>std</th>
       <th>0</th>
+      <th>long</th>
       <td>-1.697280</td>
       <td>-1.163849</td>
       <td>1.084489</td>
@@ -977,6 +982,7 @@ summary_mean.tail(5)
       <th>16420</th>
       <th>std</th>
       <th>0</th>
+      <th>long</th>
       <td>-1.696374</td>
       <td>-1.164667</td>
       <td>1.085189</td>
@@ -994,6 +1000,7 @@ summary_mean.tail(5)
       <th>16421</th>
       <th>std</th>
       <th>0</th>
+      <th>long</th>
       <td>-1.699372</td>
       <td>-1.168712</td>
       <td>1.085431</td>
@@ -1011,6 +1018,7 @@ summary_mean.tail(5)
       <th>16422</th>
       <th>std</th>
       <th>0</th>
+      <th>long</th>
       <td>-1.697491</td>
       <td>-1.170770</td>
       <td>1.090484</td>
@@ -1028,6 +1036,7 @@ summary_mean.tail(5)
       <th>16423</th>
       <th>std</th>
       <th>0</th>
+      <th>long</th>
       <td>-1.696307</td>
       <td>-1.170511</td>
       <td>1.095857</td>
@@ -1055,7 +1064,7 @@ summary_mean.to_csv("summary_mean.csv", index = True, header = True)
 
 ```python
 df2 =pd.melt(summary_mean.reset_index(), 
-             id_vars = ["time", "activity", "gender"],
+             id_vars = ["time", "activity", "gender", "label_len"],
              value_vars = numerical, 
              value_name = "metric" )
 ```
@@ -1089,6 +1098,7 @@ df2.head()
       <th>time</th>
       <th>activity</th>
       <th>gender</th>
+      <th>label_len</th>
       <th>variable</th>
       <th>metric</th>
     </tr>
@@ -1099,40 +1109,45 @@ df2.head()
       <td>0</td>
       <td>dws</td>
       <td>0</td>
+      <td>long</td>
       <td>roll</td>
-      <td>0.030195</td>
+      <td>-0.052483</td>
     </tr>
     <tr>
       <th>1</th>
       <td>0</td>
       <td>dws</td>
-      <td>1</td>
+      <td>0</td>
+      <td>short</td>
       <td>roll</td>
-      <td>-0.118793</td>
+      <td>0.195550</td>
     </tr>
     <tr>
       <th>2</th>
       <td>0</td>
-      <td>jog</td>
-      <td>0</td>
+      <td>dws</td>
+      <td>1</td>
+      <td>long</td>
       <td>roll</td>
-      <td>-0.426860</td>
+      <td>0.119389</td>
     </tr>
     <tr>
       <th>3</th>
       <td>0</td>
-      <td>jog</td>
+      <td>dws</td>
       <td>1</td>
+      <td>short</td>
       <td>roll</td>
-      <td>-0.123804</td>
+      <td>-0.595158</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0</td>
-      <td>sit</td>
+      <td>jog</td>
       <td>0</td>
+      <td>long</td>
       <td>roll</td>
-      <td>-0.400358</td>
+      <td>-0.944827</td>
     </tr>
   </tbody>
 </table>
@@ -1171,17 +1186,36 @@ if(length(new.packages)) install.packages(new.packages, repos = "http://cran.us.
 #Load Packages
 library(ggplot2)
 library(tidyr)
+library(dplyr)
 ```
 
 
 ```r
 %%R -i df2
-f <- ggplot(df2, aes(time, metric, col=variable)) + geom_line()
+long <- filter(df2, label_len == "long")
+short <- filter(df2, label_len == "short")
+```
+
+
+```r
+%%R
+f <- ggplot(long, aes(time, metric, col=variable)) + geom_line()
 f+facet_grid(gender~activity)
 ```
 
 
-<img src="images/output_76_0.png">
+![png]("images/output_77_0.png)
+
+
+
+```r
+%%R
+f <- ggplot(short, aes(time, metric, col=variable)) + geom_line()
+f+facet_grid(gender~activity)
+```
+
+
+![png]("images/output_78_0.png)
 
 
 Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
