@@ -301,19 +301,10 @@ import matplotlib.pyplot as plt
 Now that we have our data set, let's begin our EDA.
 
 
-```python
-#----------ERASE-------------
-os.chdir("D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts") # to use in my Mountain pc
-#%os.chdir("C:\\Users\\Raquel\\Dropbox\\GitHub\\Projects/Machine Learning\\Mobile_ts") #to use in my MSurface pc
-```
-
 
 ```python
 df = pd.read_csv("output.csv", index_col = 0)
 ```
-
-    D:\Anaconda3\envs\mobile_r_py\lib\site-packages\numpy\lib\arraysetops.py:472: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-      mask |= (ar1 == a)
     
 
 With this dataset we want to check if we are going to be able to predict the gender of the user as well as the type of activity they are performing. So, for both variables I want to check if there is unbalanced data.
