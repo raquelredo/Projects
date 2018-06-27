@@ -63,8 +63,6 @@ The Inclinometer sensor specifies the yaw, pitch, and roll values of a device an
 
 ## Reading the data
 
-Setting working directory.
-
 
 ```python
 #import statsmodels.api as sm
@@ -82,11 +80,6 @@ I will continue setting my working directoy. The cell has been hidden to preserv
 ```
 
 
-```python
-#----------ERASE-------------
-os.chdir("D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts") # to use in my Mountain pc
-#%os.chdir("C:\\Users\\Raquel\\Dropbox\\GitHub\\Projects/Machine Learning\\Mobile_ts") #to use in my MSurface pc
-```
 
 The data has been compiled in a serie of different csv files. In order to have a full time serie and practise some data wrangling ,  I want to create an unique dataset from all these files.
 
@@ -107,7 +100,6 @@ os.listdir(".") #List current folder
      'Data_visualization.R',
      'df2.csv',
      'images',
-     'mobile_ts',
      'mobile_ts.ipynb',
      'mobile_ts.md',
      'output.csv',
@@ -118,10 +110,6 @@ os.listdir(".") #List current folder
 
 
 
-```python
-#----------ERASE-------------
-root = "D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts\\A_DeviceMotion_data"
-```
 
 
 ```python
@@ -155,13 +143,13 @@ for csv in df_csv:
     frame["activity"] = os.path.basename(path)
     frame["subject"] = os.path.basename(csv)
     data.append(frame)
-print("----> All files have been imported.")
+print("----> All path files have been imported.")
 
 bigframe = pd.concat(data,ignore_index=True) #concatenate all files
 print("----> All files have been appended")
 ```
 
-    ----> All files have been imported.
+    ----> All path files have been imported.
     ----> All files have been appended
     
 
@@ -304,6 +292,8 @@ bigframe.to_csv("output.csv", index = True, header = True)
 import pandas as pd
 import os
 import rpy2
+import matplotlib.pyplot as plt
+%matplotlib inline
 ```
 
 ### Basic Statistics
@@ -900,6 +890,16 @@ numerical = ("roll", "pitch", "yaw", "gr_x", "gr_y", "gr_z","rot_x", "rot_y", "r
 
 
 ```python
+df.hist(figsize=(20,15))
+plt.show()
+```
+
+
+![png](images/output_65_0.png)
+
+
+
+```python
 #long = df["label_len"].filter("long", df)
 df = df.reset_index()
 summary_mean = df.groupby(by= ["time","activity", "gender", "label_len"])[numerical].mean()
@@ -1197,57 +1197,67 @@ library(gridExtra)
 ```r
 %%R -i df2
 
-plotg1 <- df2 %>% filter(label_len == "long") %>% ggplot(aes(time, metric, col=variable)) + geom_line() + facet_grid(gender~activity, scales = "free")+ ggtitle("Long Activities | Mean")
-plotg2 <- df2 %>% filter(label_len == "short") %>% ggplot(aes(time, metric, col=variable)) + geom_line() + facet_grid(gender~activity, scales = "free")+ ggtitle("Short Activities | Mean")
+options(repr.plot.width = 3, repr.plot.height=2)
 
-grid.arrange(plotg1, plotg2)
+grid1 <- df2 %>% filter(label_len == "long") %>% ggplot(aes(time, metric, col=variable)) + 
+geom_line() + facet_grid(activity~gender, scales = "free")+ ggtitle("Long Activities | Mean") 
+
+grid2 <- df2 %>% filter(label_len == "short") %>% ggplot(aes(time, metric, col=variable)) + 
+geom_line() + facet_grid(activity~gender, scales = "free")+ ggtitle("Short Activities | Mean") 
+
+grid.arrange(grid1, grid2)
 ```
 
 
-![png](output_76_0.png)
+![png](images/output_76_0.png)
 
 
-Let's focus a bit our visualization. I am going to plot the mean of the metrics for **`long` `ups`** and **`short``ups`** for both genders.
+Let's focus a bit our visualization. I am going to plot the mean of the metrics for **`long`** **`ups`** and **`short`** **`ups`** for both genders.
 
 
 ```r
 %%R
-plot1<- df2 %>% filter(label_len == "long", activity =="ups", gender ==0) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female")
-plot2<-df2 %>% filter(label_len == "long", activity == "ups", gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")
-grid.arrange(plot1, plot2)
+ups_0<- df2 %>% filter(label_len == "long", activity =="ups", gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Long) | Female")
+
+ups_1<-df2 %>% filter(label_len == "long", activity == "ups", gender ==1) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Short) | Male")
+
+grid.arrange(ups_0, ups_1)
 ```
 
 
-![png](output_78_0.png)
+![png](images/output_78_0.png)
 
 
-Rotation
+### Rotation
 
 
 ```r
 %%R
 #Rotation
 rotation <- c("rot_x", "rot_y", "rot_z")
-plot3<- df2 %>% filter(label_len == "long", activity =="ups", variable == rotation, gender ==0) %>% 
+rot_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == rotation, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female")+ labs(y="Rotation")
-plot4<-df2 %>% filter(label_len == "long", activity == "ups", variable == rotation, gender ==1) %>% 
+rot_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == rotation, gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")+ labs(y="Rotation")
 
 #Gravity
 gravity <- c("gr_x", "gr_y", "gr_z")
-plot5<- df2 %>% filter(label_len == "long", activity =="ups", variable == gravity, gender ==0) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Gravity")
-plot6<-df2 %>% filter(label_len == "long", activity == "ups", variable == gravity, gender ==1) %>% 
+gr_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == gravity, gender ==0) %>% 
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + 
+labs(y="Gravity")
+gr_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == gravity, gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male") + labs(y="Gravity")
 
-grid.arrange(plot3, plot4, plot5, plot6)
+grid.arrange(rot_0, rot_1, gr_0, gr_1)
 ```
 
 
-![png](output_80_0.png)
+![png](images/output_80_0.png)
 
+
+### Accuracy
 
 
 ```r
@@ -1255,26 +1265,28 @@ grid.arrange(plot3, plot4, plot5, plot6)
 
 #Accuracy
 accuracy <- c("acc_x", "acc_y", "acc_z")
-plot7<- df2 %>% filter(label_len == "long", activity =="ups", variable == accuracy, gender ==0) %>% 
+acc_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == accuracy, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Accuracy")
-plot8<-df2 %>% filter(label_len == "long", activity == "ups", variable == accuracy, gender ==1) %>% 
+acc_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == accuracy, gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male") + labs(y="Accuracy")
 
-#Pitch, roll, yaw
-other <- c("pitch", "roll", "yaw")
-plot9<- df2 %>% filter(label_len == "long", activity =="ups", variable == other, gender ==0) %>% 
+#Inclinometer: Pitch, roll, yaw
+inclinometer <- c("pitch", "roll", "yaw")
+inc_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == inclinometer, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Other")
-plot10<-df2 %>% filter(label_len == "long", activity == "ups", variable == other, gender ==1) %>% 
+inc_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == inclinometer, gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")+ labs(y="Other")
 
-grid.arrange(plot7, plot8, plot9, plot10)
+grid.arrange(acc_0, acc_1, inc_0, inc_1)
 ```
 
 
-![png](output_81_0.png)
+![png](images/output_82_0.png)
 
 
 Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
+
+I am going to use the `long` activities as `train set` and the short ones as a `test set`
 
 
 ```python
@@ -1283,6 +1295,10 @@ Finally, we want to provide an easy way to recreate our working environment expo
 
 
 ```python
+X
+```
 
-    
+
+```python
+df
 ```
