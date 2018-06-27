@@ -97,7 +97,6 @@ os.listdir(".") #List current folder
      'A_DeviceMotion_data',
      'data.txt',
      'data_subjects_info.csv',
-     'Data_visualization.R',
      'df2.csv',
      'images',
      'mobile_ts.ipynb',
@@ -106,6 +105,7 @@ os.listdir(".") #List current folder
      'README.md',
      'requirements.txt',
      'summary_mean.csv']
+
 
 
 
@@ -159,7 +159,7 @@ There are some cleaning to be done before exploring our data.
 ```python
 bigframe["act_id"] = bigframe.activity.apply(lambda x: x.split("_")[-1]) #write to another column activity id
 bigframe["activity"] = bigframe.activity.apply(lambda x: x.split("_")[0]) #column to keep only activity name
-bigframe["subject"] = bigframe["subject"].str.rstrip(".csv") #right strip removing file extension
+bigframe["subject"] = bigframe["subject"].str.rstrip(".csv") #right strip. Removing file extension
 bigframe["subject"] = bigframe.subject.apply(lambda x: x.split("sub_")[-1]) #keep only subject id
 ```
 
@@ -176,7 +176,7 @@ bigframe.columns = ["time", "roll", "pitch", "yaw",
 ```python
 def label_len(row):
     '''
-    Result will be set to "short" or long according to :
+    Result will be set to "short" or "long" according to :
     Long trials: those with number 1 to 9 with around 2 to 3 minutes duration.
     Short trials: those with number 11 to 16 that are around 30 seconds to 1 minutes duration.
     '''
@@ -301,10 +301,19 @@ import matplotlib.pyplot as plt
 Now that we have our data set, let's begin our EDA.
 
 
+```python
+#----------ERASE-------------
+os.chdir("D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts") # to use in my Mountain pc
+#%os.chdir("C:\\Users\\Raquel\\Dropbox\\GitHub\\Projects/Machine Learning\\Mobile_ts") #to use in my MSurface pc
+```
+
 
 ```python
 df = pd.read_csv("output.csv", index_col = 0)
 ```
+
+    D:\Anaconda3\envs\mobile_r_py\lib\site-packages\numpy\lib\arraysetops.py:472: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+      mask |= (ar1 == a)
     
 
 With this dataset we want to check if we are going to be able to predict the gender of the user as well as the type of activity they are performing. So, for both variables I want to check if there is unbalanced data.
@@ -886,8 +895,10 @@ plt.show()
 ```
 
 
-![png](images/output_65_0.png)
+![png]("images/output_65_0.png)
 
+
+In order to make Data visualization simplier, I will  use mean values of each time step according to gender, activity length, and activity.
 
 
 ```python
@@ -1200,7 +1211,7 @@ grid.arrange(grid1, grid2)
 ```
 
 
-![png](images/output_76_0.png)
+![png]("images/output_77_0.png)
 
 
 Let's focus a bit our visualization. I am going to plot the mean of the metrics for **`long`** **`ups`** and **`short`** **`ups`** for both genders.
@@ -1212,13 +1223,13 @@ ups_0<- df2 %>% filter(label_len == "long", activity =="ups", gender ==0) %>%
 ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Long) | Female")
 
 ups_1<-df2 %>% filter(label_len == "long", activity == "ups", gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Short) | Male")
+ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Long) | Male")
 
 grid.arrange(ups_0, ups_1)
 ```
 
 
-![png](images/output_78_0.png)
+![png]("images/output_79_0.png)
 
 
 ### Rotation
@@ -1231,7 +1242,7 @@ rotation <- c("rot_x", "rot_y", "rot_z")
 rot_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == rotation, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female")+ labs(y="Rotation")
 rot_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == rotation, gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")+ labs(y="Rotation")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male")+ labs(y="Rotation")
 
 #Gravity
 gravity <- c("gr_x", "gr_y", "gr_z")
@@ -1239,13 +1250,13 @@ gr_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == gravity
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + 
 labs(y="Gravity")
 gr_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == gravity, gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male") + labs(y="Gravity")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male") + labs(y="Gravity")
 
 grid.arrange(rot_0, rot_1, gr_0, gr_1)
 ```
 
 
-![png](images/output_80_0.png)
+![png]("images/output_81_0.png)
 
 
 ### Accuracy
@@ -1259,20 +1270,20 @@ accuracy <- c("acc_x", "acc_y", "acc_z")
 acc_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == accuracy, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Accuracy")
 acc_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == accuracy, gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male") + labs(y="Accuracy")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male") + labs(y="Accuracy")
 
 #Inclinometer: Pitch, roll, yaw
 inclinometer <- c("pitch", "roll", "yaw")
 inc_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == inclinometer, gender ==0) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Other")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Inclinometer")
 inc_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == inclinometer, gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Short) | Male")+ labs(y="Other")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male")+ labs(y="Inclinometer")
 
 grid.arrange(acc_0, acc_1, inc_0, inc_1)
 ```
 
 
-![png](images/output_82_0.png)
+![png]("images/output_83_0.png)
 
 
 Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
@@ -1282,14 +1293,4 @@ I am going to use the `long` activities as `train set` and the short ones as a `
 
 ```python
 ! pip freeze > requirements.txt
-```
-
-
-```python
-X
-```
-
-
-```python
-df
 ```
