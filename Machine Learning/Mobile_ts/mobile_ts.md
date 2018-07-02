@@ -81,6 +81,7 @@ I will continue setting my working directoy. The cell has been hidden to preserv
 
 
 
+
 The data has been compiled in a serie of different csv files. In order to have a full time serie and practise some data wrangling ,  I want to create an unique dataset from all these files.
 
 
@@ -132,7 +133,7 @@ print("----> All paths have been imported.")
 ```
 
 Now, we have a list of files to read with the different directories. As the file name is the id of the subject of this experiment I want to keep this information. The performed activity is also an information that is stored as the folder name.
-So, I am going to create a pair of columns with this information.
+So, I am going to create a pair of columns with this two new features.
 
 
 ```python
@@ -153,7 +154,7 @@ print("----> All files have been appended")
     ----> All files have been appended
     
 
-There are some cleaning to be done before exploring our data.
+There is some cleaning to be done before exploring our data.
 
 
 ```python
@@ -162,6 +163,8 @@ bigframe["activity"] = bigframe.activity.apply(lambda x: x.split("_")[0]) #colum
 bigframe["subject"] = bigframe["subject"].str.rstrip(".csv") #right strip. Removing file extension
 bigframe["subject"] = bigframe.subject.apply(lambda x: x.split("sub_")[-1]) #keep only subject id
 ```
+
+Renaming the columns.
 
 
 ```python
@@ -208,7 +211,7 @@ print(bigframe.head(2))
     1      long  
     
 
-We have also some information concerning hour subjects: weight, height, age and gender.
+We have also some information concerning the subjects: weight, height, age and gender.
 
 
 ```python
@@ -301,11 +304,7 @@ import matplotlib.pyplot as plt
 Now that we have our data set, let's begin our EDA.
 
 
-```python
-#----------ERASE-------------
-os.chdir("D:\\Dropbox\\github\\Projects\\Projects\\Machine Learning\\Mobile_ts") # to use in my Mountain pc
-#%os.chdir("C:\\Users\\Raquel\\Dropbox\\GitHub\\Projects/Machine Learning\\Mobile_ts") #to use in my MSurface pc
-```
+
 
 
 ```python
@@ -333,6 +332,8 @@ df["gender"].value_counts()/ df["gender"].count()
 
 
 
+Data is balanced.
+
 
 ```python
 df["activity"].value_counts() #counts number of observation for each activity
@@ -352,6 +353,8 @@ df["activity"].value_counts()/df["activity"].count()
 
 
 
+We find less observations for `jogging`and `downstairs`. We will take that into consideration.
+
 
 ```python
 print("The total number of observations is: {}".format(str(len(df))))
@@ -359,6 +362,8 @@ print("The total number of observations is: {}".format(str(len(df))))
 
     The total number of observations is: 1412865
     
+
+Let's list the name of our variables:
 
 
 ```python
@@ -375,19 +380,46 @@ df.columns
 
 
 
-How many observations (rows) are in our dataset? and columns? are there missing values? Which type of values do we have?
+How many observations (rows) are in our dataset? and columns? are there missing values? Which type of values do we have? The `info` method is useful to answer those questions.
 
 
 ```python
-#df = df.set_index("time")
+df.info()
 ```
 
-Mean, quartiles, standar deviation, max, min values are as easy to find as one line of code
+    <class 'pandas.core.frame.DataFrame'>
+    Int64Index: 1412865 entries, 0 to 1412864
+    Data columns (total 21 columns):
+    time         1412865 non-null int64
+    roll         1412865 non-null float64
+    pitch        1412865 non-null float64
+    yaw          1412865 non-null float64
+    gr_x         1412865 non-null float64
+    gr_y         1412865 non-null float64
+    gr_z         1412865 non-null float64
+    rot_x        1412865 non-null float64
+    rot_y        1412865 non-null float64
+    rot_z        1412865 non-null float64
+    acc_x        1412865 non-null float64
+    acc_y        1412865 non-null float64
+    acc_z        1412865 non-null float64
+    activity     1412865 non-null object
+    subject      1412865 non-null int64
+    act_id       1412865 non-null int64
+    label_len    1412865 non-null object
+    weight       1412865 non-null int64
+    height       1412865 non-null int64
+    age          1412865 non-null int64
+    gender       1412865 non-null int64
+    dtypes: float64(12), int64(7), object(2)
+    memory usage: 237.1+ MB
+    
+
+Mean, quartiles, standard deviation, max, min values of numerical values are as easy to find as one line of code.
 
 
 ```python
 df.describe()
-#df["time"].max()
 ```
 
 
@@ -627,6 +659,8 @@ print("We have {} activities according to lenght. And we have {} activities".for
     We have ['long' 'short'] activities according to lenght. And we have [6, 6] activities
     
 
+Does every subject participate in all sorts of activities and of both lengths?
+
 
 ```python
 df2 = df.groupby(by = ["subject","activity"])["label_len"].agg("nunique")
@@ -702,9 +736,11 @@ df2
 
 
 
-Each subject performs each one of the possible activities in both lengths.
+Each subject of this study performs each one of the possible activities in each one of both lengths.
 
 ### Data Visualization
+
+Let's take alook at the top rows using the DataFrame's `head()` method.
 
 
 ```python
@@ -883,10 +919,7 @@ df.head()
 
 
 
-
-```python
-numerical = ("roll", "pitch", "yaw", "gr_x", "gr_y", "gr_z","rot_x", "rot_y", "rot_z", "acc_x", "acc_y", "acc_z")
-```
+Another quick way to get a feel of the data type I am dealing with, is to plot a histogram for each numerical attribute.
 
 
 ```python
@@ -895,10 +928,19 @@ plt.show()
 ```
 
 
-![png]("images/output_65_0.png)
+![png](images/output_71_0.png)
 
+
+We can see from the histograms that `gr_y` and `pitch` are tail heavy. This may make it a bit harder for some Machine Learning algorithms to detect patterns. We will transform latter these attributes to  have a more bell-shaped distribution.
 
 In order to make Data visualization simplier, I will  use mean values of each time step according to gender, activity length, and activity.
+
+
+```python
+numerical = ("roll", "pitch", "yaw", "gr_x", "gr_y", "gr_z","rot_x", "rot_y", "rot_z", "acc_x", "acc_y", "acc_z")
+```
+
+I amb going to reshape of the DataFrame grouping the numerical values by its mean, and sliced by `time`, `activity`, `gender` and length of the activity, `label_len`.
 
 
 ```python
@@ -906,6 +948,8 @@ In order to make Data visualization simplier, I will  use mean values of each ti
 df = df.reset_index()
 summary_mean = df.groupby(by= ["time","activity", "gender", "label_len"])[numerical].mean()
 ```
+
+This is the result:
 
 
 ```python
@@ -1065,10 +1109,14 @@ summary_mean.tail(5)
 
 
 
+Saving this new table will help us to take a shortcut of this kernel.
+
 
 ```python
 summary_mean.to_csv("summary_mean.csv", index = True, header = True)
 ```
+
+The `melt` method will have us to reshape the data to help us with the plotting. I will create a `metric` column with the value of the `variable` of interest.
 
 
 ```python
@@ -1164,6 +1212,8 @@ df2.head()
 
 
 
+Let's save again the result.
+
 
 ```python
 df2.to_csv("df2.csv", header = True)
@@ -1211,7 +1261,7 @@ grid.arrange(grid1, grid2)
 ```
 
 
-![png]("images/output_77_0.png)
+![png](images/output_90_0.png)
 
 
 Let's focus a bit our visualization. I am going to plot the mean of the metrics for **`long`** **`ups`** and **`short`** **`ups`** for both genders.
@@ -1229,7 +1279,7 @@ grid.arrange(ups_0, ups_1)
 ```
 
 
-![png]("images/output_79_0.png)
+![png](images/output_92_0.png)
 
 
 ### Rotation
@@ -1256,7 +1306,7 @@ grid.arrange(rot_0, rot_1, gr_0, gr_1)
 ```
 
 
-![png]("images/output_81_0.png)
+![png](images/output_94_0.png)
 
 
 ### Accuracy
@@ -1283,7 +1333,7 @@ grid.arrange(acc_0, acc_1, inc_0, inc_1)
 ```
 
 
-![png]("images/output_83_0.png)
+![png](images/output_96_0.png)
 
 
 Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
