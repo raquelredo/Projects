@@ -92,9 +92,12 @@ os.listdir(".") #List current folder
 
 
 
-    ['.ipynb_checkpoints',
+    ['(Multivariate Analysis 1) Alboukadel Kassambara-Practical Guide to Cluster Analysis in R. Unsupervised Machine Learning-STHDA (2017).pdf',
+     '.ipynb_checkpoints',
      '.RData',
      '.Rhistory',
+     'Alboukadel Kassambara [Kassambara, Alboukadel]-Practical Guide To Principal Component Methods in R (Multivariate Analysis Book 2) (2017).epub',
+     'Alboukadel Kassambara-Multivariate Analysis II Practical Guide to Principal Component Methods in R.pdf',
      'A_DeviceMotion_data',
      'data.txt',
      'data_subjects_info.csv',
@@ -102,10 +105,13 @@ os.listdir(".") #List current folder
      'images',
      'mobile_ts.ipynb',
      'mobile_ts.md',
+     'mobile_ts.zip',
      'output.csv',
      'README.md',
      'requirements.txt',
-     'summary_mean.csv']
+     'summary_mean.csv',
+     'test.csv',
+     'train.csv']
 
 
 
@@ -296,6 +302,7 @@ import pandas as pd
 import os
 import rpy2
 import matplotlib.pyplot as plt
+import matplotlib as mpl #to change fig size
 %matplotlib inline
 ```
 
@@ -1230,7 +1237,7 @@ I am going to mix programming languages in this kernel as R is a much suitable t
 ```r
 %%R
 # import R packages if they are not installed
-list.of.packages <- c("ggplot2", "tidyr", "dplyr", "gridExtra")
+list.of.packages <- c("ggplot2", "tidyr", "dplyr", "gridExtra", "ggthemes")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages, repos = "http://cran.us.r-project.org")
 ```
@@ -1240,6 +1247,7 @@ if(length(new.packages)) install.packages(new.packages, repos = "http://cran.us.
 %%R
 #Load Packages
 library(ggplot2)
+library(ggthemes)
 library(tidyr)
 library(dplyr)
 library(gridExtra)
@@ -1248,11 +1256,9 @@ library(gridExtra)
 
 ```r
 %%R -i df2
-
-options(repr.plot.width = 3, repr.plot.height=2)
-
+#options(repr.plot.width=6, repr.plot.height=3)
 grid1 <- df2 %>% filter(label_len == "long") %>% ggplot(aes(time, metric, col=variable)) + 
-geom_line() + facet_grid(activity~gender, scales = "free")+ ggtitle("Long Activities | Mean") 
+geom_line() + facet_grid(activity~gender, scales = "free")+ ggtitle("Long Activities | Mean")
 
 grid2 <- df2 %>% filter(label_len == "short") %>% ggplot(aes(time, metric, col=variable)) + 
 geom_line() + facet_grid(activity~gender, scales = "free")+ ggtitle("Short Activities | Mean") 
@@ -1269,8 +1275,9 @@ Let's focus a bit our visualization. I am going to plot the mean of the metrics 
 
 ```r
 %%R
+
 ups_0<- df2 %>% filter(label_len == "long", activity =="ups", gender ==0) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Long) | Female")
+ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Long) | Female") 
 
 ups_1<-df2 %>% filter(label_len == "long", activity == "ups", gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line()+ ggtitle("Upstairs (Long) | Male")
@@ -1289,16 +1296,19 @@ grid.arrange(ups_0, ups_1)
 %%R
 #Rotation
 rotation <- c("rot_x", "rot_y", "rot_z")
+
 rot_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == rotation, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female")+ labs(y="Rotation")
+
 rot_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == rotation, gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male")+ labs(y="Rotation")
 
 #Gravity
 gravity <- c("gr_x", "gr_y", "gr_z")
+
 gr_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == gravity, gender ==0) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + 
-labs(y="Gravity")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Gravity")
+
 gr_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == gravity, gender ==1) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male") + labs(y="Gravity")
 
@@ -1324,10 +1334,12 @@ ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long)
 
 #Inclinometer: Pitch, roll, yaw
 inclinometer <- c("pitch", "roll", "yaw")
+
 inc_0<- df2 %>% filter(label_len == "long", activity =="ups", variable == inclinometer, gender ==0) %>% 
 ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Female") + labs(y="Inclinometer")
+
 inc_1<-df2 %>% filter(label_len == "long", activity == "ups", variable == inclinometer, gender ==1) %>% 
-ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male")+ labs(y="Inclinometer")
+ggplot(aes(time, metric, col=variable)) + geom_line() + ggtitle("Upstairs (Long) | Male")+ labs(y="Inclinometer")+ theme(plot.margin = unit(c(1,1,1,1), "cm"))
 
 grid.arrange(acc_0, acc_1, inc_0, inc_1)
 ```
@@ -1336,9 +1348,422 @@ grid.arrange(acc_0, acc_1, inc_0, inc_1)
 ![png](images/output_96_0.png)
 
 
-Finally, we want to provide an easy way to recreate our working environment exporting the 'requirements' text file. 
+## Create a Test and Train Data sets
 
-I am going to use the `long` activities as `train set` and the short ones as a `test set`
+This dataset is a time serie. So in order to split the observations to create a train and a test dataset, we cannot use a random selection.
+I am going to take advantage of the two diferent kind of activities and I will use the `long` activities as a train dataset and the `short` activities as a test set.
+
+
+```python
+#Train DataSet
+train = df.groupby("index").filter(lambda x : (x["label_len"]=="long").any())
+train.to_csv("train.csv", header = True)
+```
+
+
+```python
+#Test DataSet
+test = df.groupby("index").filter(lambda x : (x["label_len"]=="short").any())
+test.to_csv("test.csv", header = True)
+```
+
+
+```python
+#Load datasets
+train = pd.read_csv("train.csv")
+test = pd.read_csv("test.csv")
+```
+
+
+```python
+train = train.drop(columns=["index","label_len","subject", "act_id", "weight", "height", "age"])
+test = test.drop(columns=["index","label_len","subject", "act_id", "weight", "height", "age"])
+```
+
+Since this dataset is not too large, I can easily compute the Standard correlation Coefficient (Pearson) between every pair of attributes. Machine Learning algorithms can be mislead if there are different attributes highly correlated.
+
+
+```python
+corr_matrix = train.corr()
+```
+
+
+```python
+corr_matrix
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>time</th>
+      <th>roll</th>
+      <th>pitch</th>
+      <th>yaw</th>
+      <th>gr_x</th>
+      <th>gr_y</th>
+      <th>gr_z</th>
+      <th>rot_x</th>
+      <th>rot_y</th>
+      <th>rot_z</th>
+      <th>acc_x</th>
+      <th>acc_y</th>
+      <th>acc_z</th>
+      <th>gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Unnamed: 0</th>
+      <td>1.000000</td>
+      <td>0.018102</td>
+      <td>0.057808</td>
+      <td>-0.271119</td>
+      <td>-0.041891</td>
+      <td>-0.019076</td>
+      <td>0.281338</td>
+      <td>-0.008630</td>
+      <td>-0.000378</td>
+      <td>0.071881</td>
+      <td>0.005489</td>
+      <td>-0.049194</td>
+      <td>0.019269</td>
+      <td>0.092799</td>
+      <td>-0.020939</td>
+    </tr>
+    <tr>
+      <th>time</th>
+      <td>0.018102</td>
+      <td>1.000000</td>
+      <td>-0.065426</td>
+      <td>0.196657</td>
+      <td>-0.043576</td>
+      <td>-0.002391</td>
+      <td>-0.204286</td>
+      <td>-0.034043</td>
+      <td>-0.000351</td>
+      <td>-0.002983</td>
+      <td>-0.003359</td>
+      <td>0.002011</td>
+      <td>-0.025155</td>
+      <td>0.016607</td>
+      <td>-0.036593</td>
+    </tr>
+    <tr>
+      <th>roll</th>
+      <td>0.057808</td>
+      <td>-0.065426</td>
+      <td>1.000000</td>
+      <td>-0.072772</td>
+      <td>0.016381</td>
+      <td>0.672306</td>
+      <td>0.078449</td>
+      <td>-0.385477</td>
+      <td>-0.024189</td>
+      <td>0.021488</td>
+      <td>0.004251</td>
+      <td>-0.083843</td>
+      <td>0.007598</td>
+      <td>0.078942</td>
+      <td>-0.027268</td>
+    </tr>
+    <tr>
+      <th>pitch</th>
+      <td>-0.271119</td>
+      <td>0.196657</td>
+      <td>-0.072772</td>
+      <td>1.000000</td>
+      <td>0.104354</td>
+      <td>0.106212</td>
+      <td>-0.980499</td>
+      <td>-0.244997</td>
+      <td>-0.001865</td>
+      <td>-0.034678</td>
+      <td>0.004649</td>
+      <td>-0.018371</td>
+      <td>-0.044510</td>
+      <td>-0.002413</td>
+      <td>0.052856</td>
+    </tr>
+    <tr>
+      <th>yaw</th>
+      <td>-0.041891</td>
+      <td>-0.043576</td>
+      <td>0.016381</td>
+      <td>0.104354</td>
+      <td>1.000000</td>
+      <td>-0.025857</td>
+      <td>-0.094978</td>
+      <td>0.000565</td>
+      <td>-0.003315</td>
+      <td>0.010550</td>
+      <td>0.002887</td>
+      <td>0.009367</td>
+      <td>0.006068</td>
+      <td>-0.018798</td>
+      <td>-0.059088</td>
+    </tr>
+    <tr>
+      <th>gr_x</th>
+      <td>-0.019076</td>
+      <td>-0.002391</td>
+      <td>0.672306</td>
+      <td>0.106212</td>
+      <td>-0.025857</td>
+      <td>1.000000</td>
+      <td>-0.084312</td>
+      <td>-0.500658</td>
+      <td>-0.017546</td>
+      <td>0.007733</td>
+      <td>0.004866</td>
+      <td>-0.108542</td>
+      <td>0.009461</td>
+      <td>0.043883</td>
+      <td>-0.031459</td>
+    </tr>
+    <tr>
+      <th>gr_y</th>
+      <td>0.281338</td>
+      <td>-0.204286</td>
+      <td>0.078449</td>
+      <td>-0.980499</td>
+      <td>-0.094978</td>
+      <td>-0.084312</td>
+      <td>1.000000</td>
+      <td>0.223548</td>
+      <td>0.000554</td>
+      <td>0.024837</td>
+      <td>-0.000478</td>
+      <td>0.013977</td>
+      <td>0.036488</td>
+      <td>0.020268</td>
+      <td>-0.052402</td>
+    </tr>
+    <tr>
+      <th>gr_z</th>
+      <td>-0.008630</td>
+      <td>-0.034043</td>
+      <td>-0.385477</td>
+      <td>-0.244997</td>
+      <td>0.000565</td>
+      <td>-0.500658</td>
+      <td>0.223548</td>
+      <td>1.000000</td>
+      <td>-0.006249</td>
+      <td>0.026335</td>
+      <td>-0.055697</td>
+      <td>0.087610</td>
+      <td>0.011140</td>
+      <td>-0.183369</td>
+      <td>-0.083779</td>
+    </tr>
+    <tr>
+      <th>rot_x</th>
+      <td>-0.000378</td>
+      <td>-0.000351</td>
+      <td>-0.024189</td>
+      <td>-0.001865</td>
+      <td>-0.003315</td>
+      <td>-0.017546</td>
+      <td>0.000554</td>
+      <td>-0.006249</td>
+      <td>1.000000</td>
+      <td>-0.156779</td>
+      <td>0.410658</td>
+      <td>-0.031765</td>
+      <td>0.079951</td>
+      <td>0.011539</td>
+      <td>-0.000128</td>
+    </tr>
+    <tr>
+      <th>rot_y</th>
+      <td>0.071881</td>
+      <td>-0.002983</td>
+      <td>0.021488</td>
+      <td>-0.034678</td>
+      <td>0.010550</td>
+      <td>0.007733</td>
+      <td>0.024837</td>
+      <td>0.026335</td>
+      <td>-0.156779</td>
+      <td>1.000000</td>
+      <td>-0.063592</td>
+      <td>-0.041628</td>
+      <td>0.025882</td>
+      <td>-0.016428</td>
+      <td>0.001038</td>
+    </tr>
+    <tr>
+      <th>rot_z</th>
+      <td>0.005489</td>
+      <td>-0.003359</td>
+      <td>0.004251</td>
+      <td>0.004649</td>
+      <td>0.002887</td>
+      <td>0.004866</td>
+      <td>-0.000478</td>
+      <td>-0.055697</td>
+      <td>0.410658</td>
+      <td>-0.063592</td>
+      <td>1.000000</td>
+      <td>0.051337</td>
+      <td>-0.008821</td>
+      <td>-0.023651</td>
+      <td>0.004685</td>
+    </tr>
+    <tr>
+      <th>acc_x</th>
+      <td>-0.049194</td>
+      <td>0.002011</td>
+      <td>-0.083843</td>
+      <td>-0.018371</td>
+      <td>0.009367</td>
+      <td>-0.108542</td>
+      <td>0.013977</td>
+      <td>0.087610</td>
+      <td>-0.031765</td>
+      <td>-0.041628</td>
+      <td>0.051337</td>
+      <td>1.000000</td>
+      <td>-0.034077</td>
+      <td>-0.197139</td>
+      <td>0.024883</td>
+    </tr>
+    <tr>
+      <th>acc_y</th>
+      <td>0.019269</td>
+      <td>-0.025155</td>
+      <td>0.007598</td>
+      <td>-0.044510</td>
+      <td>0.006068</td>
+      <td>0.009461</td>
+      <td>0.036488</td>
+      <td>0.011140</td>
+      <td>0.079951</td>
+      <td>0.025882</td>
+      <td>-0.008821</td>
+      <td>-0.034077</td>
+      <td>1.000000</td>
+      <td>-0.092418</td>
+      <td>0.025050</td>
+    </tr>
+    <tr>
+      <th>acc_z</th>
+      <td>0.092799</td>
+      <td>0.016607</td>
+      <td>0.078942</td>
+      <td>-0.002413</td>
+      <td>-0.018798</td>
+      <td>0.043883</td>
+      <td>0.020268</td>
+      <td>-0.183369</td>
+      <td>0.011539</td>
+      <td>-0.016428</td>
+      <td>-0.023651</td>
+      <td>-0.197139</td>
+      <td>-0.092418</td>
+      <td>1.000000</td>
+      <td>0.001060</td>
+    </tr>
+    <tr>
+      <th>gender</th>
+      <td>-0.020939</td>
+      <td>-0.036593</td>
+      <td>-0.027268</td>
+      <td>0.052856</td>
+      <td>-0.059088</td>
+      <td>-0.031459</td>
+      <td>-0.052402</td>
+      <td>-0.083779</td>
+      <td>-0.000128</td>
+      <td>0.001038</td>
+      <td>0.004685</td>
+      <td>0.024883</td>
+      <td>0.025050</td>
+      <td>0.001060</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+corr_matrix["gender"].sort_values(ascending = False)
+```
+
+
+
+
+    gender        1.000000
+    pitch         0.052856
+    acc_y         0.025050
+    acc_x         0.024883
+    rot_z         0.004685
+    acc_z         0.001060
+    rot_y         0.001038
+    rot_x        -0.000128
+    Unnamed: 0   -0.020939
+    roll         -0.027268
+    gr_x         -0.031459
+    time         -0.036593
+    gr_y         -0.052402
+    yaw          -0.059088
+    gr_z         -0.083779
+    Name: gender, dtype: float64
+
+
+
+
+```python
+corr = corr_matrix.unstack().reset_index() #group together pairwise
+corr.columns = ['var1','var2','corr'] #rename columns to something readable
+print( corr[ corr['corr'].abs() > 0.7 ] ) #keep correlation results above 0.7
+```
+
+               var1        var2      corr
+    0    Unnamed: 0  Unnamed: 0  1.000000
+    16         time        time  1.000000
+    32         roll        roll  1.000000
+    48        pitch       pitch  1.000000
+    51        pitch        gr_y -0.980499
+    64          yaw         yaw  1.000000
+    80         gr_x        gr_x  1.000000
+    93         gr_y       pitch -0.980499
+    96         gr_y        gr_y  1.000000
+    112        gr_z        gr_z  1.000000
+    128       rot_x       rot_x  1.000000
+    144       rot_y       rot_y  1.000000
+    160       rot_z       rot_z  1.000000
+    176       acc_x       acc_x  1.000000
+    192       acc_y       acc_y  1.000000
+    208       acc_z       acc_z  1.000000
+    224      gender      gender  1.000000
+    
+
+Features `pitch` and `gr_y` have a high negative correlation of 0.980499. If we don't manipulate in other way our features (i.e doing PCA) we have to remove one of the attributes as both of them give the same information to our model and will mislead the prediction. We will remove the attribute with less correlation with our target value `gender`. In this case, the feature to be removed would be `gr_y`. 
+
+Finally, we want to provide an easy way to recreate our working environment exporting the `requirements` text file. 
 
 
 ```python
